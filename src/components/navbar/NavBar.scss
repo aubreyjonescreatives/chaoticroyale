@@ -1,18 +1,41 @@
 .main-navbar {
+    padding: 1rem 0;
     background: #3b3b3b;
     color: #fff;  
     
-    .container {
-        
-    }
-
     a {
+        padding: 0.5rem;
         color: inherit;
         text-decoration: none;
+        border-radius: 2rem;
+        font-size: 1.6rem;
+
+        &.current {
+            background: #555;
+        }
+
+        &:hover {
+            color: inherit;
+            background: rgb(153, 153, 153);
+            text-decoration: none;
+        }
+
+        &:active {
+            background: rgb(219, 219, 219);
+            color: #3b3b3b;
+        }
     }
 
     .score-balance {
-   
+        margin-left: auto;
+
+        .high-score {
+
+            @media screen and (min-width: 992px) {
+                border-right: 1px solid #fff;
+            }
+            
+        }
     }
 
 }
