@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
 import { Card } from 'react-bootstrap'
-import './playerarea.scss'
+import './dealerarea.scss'
 import axios from 'axios'
 
 
@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 
-const PlayerArea = () => {
+const DealerArea = () => {
 
 
 const [userCards, setUserCards] = useState({
@@ -34,11 +34,15 @@ useEffect(() => {
 
 return (
 
-<div id="player-area-container">
+<div id="dealer-area-container">
 
-<div id="Player1">Player1</div>
 
-<div id="PlayerCard">
+<div id="Dealer">Dealer</div>
+
+
+<div id="DealerCard">
+
+
 
 {userCards.cardList.map((card) => {
 
@@ -55,8 +59,11 @@ return (
 
 
 })
+
+
 }
 </div>
+
 
 </div>
 
@@ -69,4 +76,4 @@ return (
 
 
 
-export default PlayerArea; 
+export default DealerArea; 
