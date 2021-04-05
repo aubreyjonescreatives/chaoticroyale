@@ -14,8 +14,8 @@ We chose the [React](https://reactjs.org) library because React has a higher dem
 
 ## Usage
 
-1. Clone the repository:  `git clone git@github.com:aubreyjonescreatives/chaotcneutralgames.git`
-2. Navigate to the project directory: `cd chaotcneutralgames`
+1. Clone the repository:  `git clone git@github.com:aubreyjonescreatives/chaoticroyale.git`
+2. Navigate to the project directory: `cd chaoticroyale`
 3. Install NPM packages: `npm i`
 4. Run development server: `npm start`
 5. Build for production: `npm run build`
