@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import NavBar from './components/navbar/NavBar'
 import DealerArea from './components/DealerArea/DealerArea'
 import PlayerArea from './components/PlayerArea/PlayerArea'
