@@ -18,7 +18,7 @@ const NavBar = props => {
 
                     <div className="d-flex score-balance justify-self-end">
                         <h3 className="high-score pr-lg-5 mr-lg-5">High Score: $150,000</h3>
-                        <h3 className="balance">Balance: $20,000</h3>
+                        <h3 className="balance">Balance: ${props.chips}</h3>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 
-const DealerArea = () => {
+const DealerArea = (props) => {
 
 
 const [userCards, setUserCards] = useState({
@@ -44,9 +44,10 @@ return (
 
 
 {userCards.cardList.map((card) => {
-
+    props.cardValue(card.value)
+    console.log(card)
 return (
-    <Card>
+    <Card key={card.code} >
     <Card.Img 
     variant="top"
     alt='card'

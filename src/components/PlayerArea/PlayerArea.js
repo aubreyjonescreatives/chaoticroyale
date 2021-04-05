@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 
-const PlayerArea = () => {
+const PlayerArea = (props) => {
 
 
 const [userCards, setUserCards] = useState({
@@ -41,9 +41,10 @@ return (
 <div id="PlayerCard">
 
 {userCards.cardList.map((card) => {
-
+    props.cardValue(card.value)
+    console.log(card)
 return (
-    <Card>
+    <Card key={card.code} >
     <Card.Img 
     variant="top"
     alt='card'
