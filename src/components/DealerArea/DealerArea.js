@@ -28,8 +28,7 @@ axios.get(`https://deckofcardsapi.com/api/deck/new/draw/?count=1`)
 
 useEffect(() => {
     fetchCards()
-})
-
+}, [])
 
 
 return (
