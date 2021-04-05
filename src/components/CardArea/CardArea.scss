@@ -1,20 +1,39 @@
+// animations
+@keyframes fadeInOpacity {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 .card-area-container {
-  border: 1px solid #3b3b3b; 
+  border: 1px solid #3b3b3b81; 
+  min-height: 250px;
   width: 600px; 
   border-radius: 2px; 
   margin: 30px;
+
+  .area-name {
+    text-align: left; 
+    font-size: 24px; 
+    padding: 20px;
+    padding-bottom: 0;
+    font-weight: bold;
+  }
+  
+  .card-area {
+    padding: 20px;
+    display: flex;
+
+    .cardItem {
+      width: 120px;
+      margin-right: 10px;
+
+      // animation
+      opacity: 1;
+      animation-name: fadeInOpacity;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in;
+      animation-duration: 0.5s;
+    }
+  }
 }
 
-.area-name {
-  text-align: left; 
-  font-size: 24px; 
-  margin: 20px;
-}
-
-.AreaCard {
-  height: 200px; 
-  width: 300px; 
-  margin: 0 20px; 
-  align-items: justify;
-  padding-right: 200px; 
-}

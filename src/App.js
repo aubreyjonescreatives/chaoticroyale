@@ -5,6 +5,7 @@ import NavBar from './components/navbar/NavBar'
 import DealerArea from './components/DealerArea/DealerArea'
 import PlayerArea from './components/PlayerArea/PlayerArea'
 import CardArea from './components/CardArea/CardArea'
+import ActionArea from './components/ActionArea/ActionArea'
 
 
 
@@ -17,20 +18,22 @@ function App() {
   const [userCards, setUserCards] = useState([])
   const [dealerCards, setDealerCards] = useState([])
 
-  const fetchCards = async () => {
-    // TODO: this can probably be optimized. probably don't have to make two axios requests.
-    axios.get(`https://deckofcardsapi.com/api/deck/new/draw/?count=1`)
-    .then((res) => {
-      setDealerCards([...dealerCards, res.data.cards[0]])
-    })
+  const addUserCard = async () => {
     axios.get(`https://deckofcardsapi.com/api/deck/new/draw/?count=1`)
     .then((res) => {
       setUserCards([...userCards, res.data.cards[0]])
     })
   }
+  const addDealerCard = async () => {
+    axios.get(`https://deckofcardsapi.com/api/deck/new/draw/?count=1`)
+    .then((res) => {
+      setDealerCards([...dealerCards, res.data.cards[0]])
+    })
+  }
 
   useEffect(() => {
-    fetchCards()
+    addUserCard()
+    addDealerCard()
   }, [])
   
   return (
@@ -38,6 +41,7 @@ function App() {
       <NavBar />
       <CardArea cards={dealerCards} name="Dealer" />
       <CardArea cards={userCards} name="Player" />
+      <ActionArea addUserCard={addUserCard} addDealerCard={addDealerCard}/>
     </div>
   );
 }
