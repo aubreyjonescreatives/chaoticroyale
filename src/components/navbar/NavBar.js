@@ -13,7 +13,7 @@ const NavBar = props => {
                     
                     <nav className="main-nav">
                         <a href="#" className="current">Blackjack</a>
-                        <a href="#">Other game</a>
+                        <a href="#">Slots</a>
                     </nav>
 
                     <div className="d-flex score-balance justify-self-end">
