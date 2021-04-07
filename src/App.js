@@ -6,6 +6,7 @@ import DealerArea from './components/DealerArea/DealerArea'
 import PlayerArea from './components/PlayerArea/PlayerArea'
 import CardArea from './components/CardArea/CardArea'
 import ActionArea from './components/ActionArea/ActionArea'
+import SlotMachine from './components/SlotMachine/SlotMachine'
 
 
 
@@ -42,6 +43,8 @@ function App() {
       <CardArea cards={dealerCards} name="Dealer" />
       <CardArea cards={userCards} name="Player" />
       <ActionArea addUserCard={addUserCard} addDealerCard={addDealerCard}/>
+
+      <SlotMachine />
     </div>
   );
 }
