@@ -1,4 +1,5 @@
 import './NavBar.scss'
+import { NavLink } from 'react-router-dom'
 
 const NavBar = props => {
     
@@ -8,12 +9,12 @@ const NavBar = props => {
             <div className="container">
                 <div className="row align-items-center">
                     <div className="logo mr-lg-5">
-                        <h1>Chaotic Royale</h1>
+                        <h1 className="logoText"><NavLink to="/">Chaotic Royale</NavLink></h1>
                     </div>
                     
                     <nav className="main-nav">
-                        <a href="#" className="current">Blackjack</a>
-                        <a href="#">Slots</a>
+                        <NavLink activeClassName="activeLink" to="/blackjack">Blackjack</NavLink>
+                        <NavLink activeClassName="activeLink" to="/slots">Slots</NavLink>
                     </nav>
 
                     <div className="d-flex score-balance justify-self-end">
