@@ -23,6 +23,24 @@ const Blackjack = props => {
             })
     }
 
+    const hit = () => {
+        console.log('hit')
+    }
+
+    const stand = () => {
+        console.log('stand')
+    }
+
+    const double = () => {
+        console.log('double')
+    }
+
+    const split = () => {
+        // i'm not completely sure if splitting is something we wanna include,
+        // but i'm going to write the function for it anyways
+        console.log('split')
+    }
+
     useEffect(() => {
         addUserCard()
         addDealerCard()
@@ -32,7 +50,14 @@ const Blackjack = props => {
         <div className="App">
             <CardArea cards={dealerCards} name="Dealer" />
             <CardArea cards={userCards} name="Player" />
-            <ActionArea addUserCard={addUserCard} addDealerCard={addDealerCard} />
+            <ActionArea 
+                addUserCard={addUserCard} 
+                addDealerCard={addDealerCard} 
+                hit={hit}
+                stand={stand}
+                double={double}
+                split={split}
+            />
         </div>
     )
 }
