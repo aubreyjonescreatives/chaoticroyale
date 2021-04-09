@@ -47,7 +47,7 @@ const Blackjack = props => {
     }, [])
 
     return (
-        <div className="App">
+        <div className="Blackjack">
             <CardArea cards={dealerCards} name="Dealer" />
             <CardArea cards={userCards} name="Player" />
             <ActionArea 
