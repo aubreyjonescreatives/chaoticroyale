@@ -10,6 +10,7 @@ const ActionArea = (props) => {
       <button onClick={props.stand} className="actionBtn" >Stand</button>
       <button onClick={props.double} className="actionBtn" >Double</button>
       <button onClick={props.split} className="actionBtn" >Split</button>
+      <button onClick={props.endGame} className="actionBtn" >End Game</button>
     </div>
   )
 }
