@@ -9,20 +9,26 @@ import ActionArea from "./ActionArea/ActionArea";
 const getCard = (faceState, deck) => {
   let aCard = deck.shift();
   if (faceState === "down") {
-    aCard["image"] = "cardBacks/Card1.svg";
+    aCard["image"] = "cardBacks/CardFix1.svg";
     return aCard;
   } else {
     return aCard;
   }
 };
 
+
+
+const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+
 const Blackjack = (props) => {
   const [gameState, setGameState] = useState("pregame");
   const [userCards, setUserCards] = useState([]);
   const [dealerCards, setDealerCards] = useState([]);
   const [deck, setDeck] = useState([]);
-//   const [dealState, setDealState] = useState(false);
-//   const [aCard, setACard] = useState([]);
+  const [userValue, setUserValue] = useState([]);
+  const [dealerValue, setDealerValue] = useState([]);
 
   const changeGamePhase = (phase) => {
     setGameState(phase);
@@ -32,16 +38,16 @@ const Blackjack = (props) => {
     setDeck(newDeck);
   };
 
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
-  const dealCard = (whoTo, faceState, oldArray) => {
+  const dealCard = (whoTo, faceState) => {
     let newCard = getCard(faceState, deck);
     if (whoTo === "user") {
       setUserCards((userCards) => [...userCards, newCard]);
+      setUserValue(userValue.concat(newCard.value))
+      console.log("User value is now: ", userValue)
     } else {
       setDealerCards((dealerCards) => [...dealerCards, newCard]);
+      setDealerValue(dealerValue.concat(newCard.value))
+      console.log("Dealer value is now: ", dealerValue)
     }
   };
 
@@ -55,6 +61,7 @@ const Blackjack = (props) => {
     dealCard("house", "up", dealerCards);
     await sleep(450);
     console.log("User cards are: ", userCards)
+    setGameState("userPhase")
   };
 
   //   const handleGameState = (state) => {
@@ -75,6 +82,11 @@ const Blackjack = (props) => {
       shuffleCards();
     }
   }, [gameState]);
+
+  useEffect(() => {
+
+    
+  }, [deck])
 
   return (
     <div className="App">
