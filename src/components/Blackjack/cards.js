@@ -355,6 +355,10 @@ export const reducer = (valueArray) => {
     console.log("Empty initial array for score. Score is 0.")
     return theScore
   }
+  if(valueArray === ["1or11", "1or11"]){
+    theScore = 12
+    return theScore
+  }
   if (valueArray.includes("1or11")) {
     console.log("Has an ace!")
     let numAces = valueArray.filter((item => item === "1or11")).length;
@@ -364,6 +368,7 @@ export const reducer = (valueArray) => {
       theScore = 11
       return theScore
     }
+
     if((withoutAces.reduce(sumArray) + (11 * numAces)) === 21 || (withoutAces.reduce(sumArray) + (1 * numAces)) === 21){
       theScore = 21
       return theScore

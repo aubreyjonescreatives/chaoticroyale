@@ -9,9 +9,10 @@ const InfoArea = (props) => {
         ) : null}
       </div>
       <div>
-        {props.userScore > 21 ? <p>Bust!: {props.userScore} </p> : null}
+       
         {props.gameState === "bust" ? (
           <div>
+             <h3>Bust! </h3>
             <p>You lost the bet. </p>
             <button onClick={() => props.handleGameState("addOne")}>
               New Hand?
@@ -20,7 +21,7 @@ const InfoArea = (props) => {
         ) : null}
         {props.gameState === "winRoundNatural" ? (
           <div>
-            <p>BLACKJACK! You win!</p>
+            <h3>BLACKJACK! You win!</h3>
             <p>
               Your score: {props.userScore} Dealer score: {props.dealerScore}
             </p>
@@ -37,9 +38,20 @@ const InfoArea = (props) => {
             </button>
           </div>
         ) : null}
-        {props.gameState === "winRound" ? (
+        {props.gameState === "endRoundWin" ? (
           <div>
             <p>You win!</p>
+            <p>
+              Your score: {props.userScore} Dealer score: {props.dealerScore}
+            </p>
+            <button onClick={() => props.handleGameState("addOne")}>
+              New Hand?
+            </button>
+          </div>
+        ) : null}
+                {props.gameState === "endRoundLose" ? (
+          <div>
+            <p>You lose the bet!</p>
             <p>
               Your score: {props.userScore} Dealer score: {props.dealerScore}
             </p>

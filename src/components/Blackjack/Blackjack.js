@@ -53,11 +53,20 @@ const Blackjack = (props) => {
     await sleep(450);
     dealCard("house", "up", dealerCards);
     await sleep(450);
-    console.log("User cards are: ", userCards);
-    if (userScore !== 21) {
-      setGameState("userPhase");
-    }
+
   };
+
+  //make dealerPhase governing here?
+
+  // const dealersTurn = async () => {
+  //   if(dealerScore > userScore){
+  //     setGameState("endRoundLose")
+  //   } else if(dealerScore < userScore) {
+  //     //here change a state
+  //   } else{
+  //     setGameState("endRoundWin")
+  //   }
+  // }
 
   const handleGameState = (state) => {
     setGameState(state);
@@ -66,10 +75,15 @@ const Blackjack = (props) => {
     }
   };
 
-  //  const printUserValue = () => {
-  //     console.log("User value is:", userValue)
-  //   }
+  //Changes phase to userPhase if their initial cards are less than 21
+  useEffect(() => {
+    if (userScore < 21 && userCards.length === 2) {
+      console.log(`Your score is ${userScore} after initial deal.`)
+      setGameState("userPhase");
+    }
+  }, [userScore, userCards])
 
+  //Shuffles the cards, and assigns that deck as the main game deck.
   useEffect(() => {
     console.log("GameState is now: ", gameState);
     const shuffleCards = async () => {
@@ -77,7 +91,6 @@ const Blackjack = (props) => {
       let shuffledDeck = await shuffle(cards);
       console.log("Shuffled cards:", shuffledDeck);
       handleDeck(shuffledDeck);
-      //   setDealState(true);
       setGameState("addOne");
     };
 
@@ -98,23 +111,45 @@ const Blackjack = (props) => {
     setDealerScore(hiddenDealerScore);
   }, [userValue, dealerValue]);
 
-  //This useEffect governs a bust, or a score over 21
+  //This useEffect for dealer AI
   useEffect(() => {
+    // const dealerAI = async () => {
+    //   while(dealerScore < userScore) {
+    //     if(dealerScore < 21) {
+    //       dealCard("house", "up", dealerCards);
+    //       await sleep(450);
+    //     } 
+    //     // else{
+    //     //   return;
+    //     // }
+    //   }
+    // }
+    // if (gameState === "dealerPhase") {
+    //   dealersTurn();
+    // }
+    
+  }, [gameState]);
+
+
+  //This useEffect governs a bust, or a score over 21
+  useEffect(async() => {
     const busted = () => {
       setGameState("bust");
     };
     if (userScore > 21) {
+      await sleep(300);
       busted();
     }
-  }, [userScore, gameState]);
+  }, [userScore]);
 
   //This useEffect governs a blackjack/natural 21 win
-  useEffect(() => {
-    const youWinNatural = () => {
+  useEffect(async() => {
+    const youWinNatural = async () => {
       setGameState("winRoundNatural");
     };
     if (userScore === 21 && userValue.length === 2) {
       console.log("Natural 21 detected!");
+      await sleep(450);
       youWinNatural();
     }
   }, [userScore, userValue]);
@@ -135,6 +170,8 @@ const Blackjack = (props) => {
       youWin();
     } else if (userScore < dealerScore && gameState === "dealerEnds") {
       youLose();
+    } else if (userScore === dealerScore && gameState === "dealerEnds") {
+      itsADraw()
     }
   }, [userScore, gameState, dealerScore]);
 
@@ -148,6 +185,8 @@ const Blackjack = (props) => {
       youWin6();
     }
   }, [userValue]);
+
+  //Need a useEffect that 
 
   return (
     <div className="App">
