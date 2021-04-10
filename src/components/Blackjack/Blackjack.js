@@ -132,24 +132,25 @@ const Blackjack = (props) => {
 
 
   //This useEffect governs a bust, or a score over 21
-  useEffect(async() => {
-    const busted = () => {
+  useEffect(() => {
+    async function busted () {
+      await sleep(600);
       setGameState("bust");
     };
     if (userScore > 21) {
-      await sleep(300);
+      
       busted();
     }
   }, [userScore]);
 
   //This useEffect governs a blackjack/natural 21 win
-  useEffect(async() => {
+  useEffect(() => {
     const youWinNatural = async () => {
+      await sleep(450);
       setGameState("winRoundNatural");
     };
     if (userScore === 21 && userValue.length === 2) {
       console.log("Natural 21 detected!");
-      await sleep(450);
       youWinNatural();
     }
   }, [userScore, userValue]);
