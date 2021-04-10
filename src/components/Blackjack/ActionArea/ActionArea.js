@@ -35,6 +35,7 @@ const ActionArea = (props) => {
       ) : null}
       {/* <button onClick={props.addDealerCard} className="actionBtn" >Add Dealer Card</button>
       <button onClick={props.addUserCard} className="actionBtn" >Add User Card</button> */}
+
     </div>
   );
 };

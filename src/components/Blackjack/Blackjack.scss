@@ -1,0 +1,19 @@
+.Blackjack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "CardArea ActionArea"
+    "CardArea ActionArea";
+  max-width: 1400px;
+  margin: 0 auto;
+
+  .CardArea {
+    grid-area: CardArea;
+  }
+  .ActionArea {
+    grid-area: ActionArea;
+  }
+  .BetArea {
+    grid-area: ActionArea;
+  }
+}
