@@ -1,26 +1,11 @@
 import { useEffect, useState } from "react";
-import cards, { shuffle } from "./cards.js";
+import cards, { shuffle, getCard, sleep, reducer } from "./cards.js";
 import "./Blackjack.scss";
 
 // import axios from "axios";
 import CardArea from "./CardArea/CardArea";
 import ActionArea from "./ActionArea/ActionArea";
-
-const getCard = (faceState, deck) => {
-  let aCard = deck.shift();
-  if (faceState === "down") {
-    aCard["image"] = "cardBacks/CardFix1.svg";
-    return aCard;
-  } else {
-    return aCard;
-  }
-};
-
-
-
-const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
+import InfoArea from "./InfoArea/InfoArea";
 
 const Blackjack = (props) => {
   const [gameState, setGameState] = useState("pregame");
@@ -29,7 +14,17 @@ const Blackjack = (props) => {
   const [deck, setDeck] = useState([]);
   const [userValue, setUserValue] = useState([]);
   const [dealerValue, setDealerValue] = useState([]);
+  const [userScore, setUserScore] = useState(0);
+  const [dealerScore, setDealerScore] = useState(0);
 
+  const newHand = () => {
+    setUserValue([]);
+    setDealerValue([]);
+    setUserScore(0);
+    setDealerScore(0);
+    setUserCards([]);
+    setDealerCards([]);
+  };
   const changeGamePhase = (phase) => {
     setGameState(phase);
   };
@@ -42,12 +37,10 @@ const Blackjack = (props) => {
     let newCard = getCard(faceState, deck);
     if (whoTo === "user") {
       setUserCards((userCards) => [...userCards, newCard]);
-      setUserValue(userValue.concat(newCard.value))
-      console.log("User value is now: ", userValue)
+      setUserValue((userValue) => [...userValue, newCard.value]);
     } else {
       setDealerCards((dealerCards) => [...dealerCards, newCard]);
-      setDealerValue(dealerValue.concat(newCard.value))
-      console.log("Dealer value is now: ", dealerValue)
+      setDealerValue((dealerValue) => [...dealerValue, newCard.value]);
     }
   };
 
@@ -60,15 +53,25 @@ const Blackjack = (props) => {
     await sleep(450);
     dealCard("house", "up", dealerCards);
     await sleep(450);
-    console.log("User cards are: ", userCards)
-    setGameState("userPhase")
+    console.log("User cards are: ", userCards);
+    if (userScore !== 21) {
+      setGameState("userPhase");
+    }
   };
 
-  //   const handleGameState = (state) => {
-  //     setGameState(state);
-  //   };
+  const handleGameState = (state) => {
+    setGameState(state);
+    if (state === "addOne" && dealerScore > 0) {
+      newHand();
+    }
+  };
+
+  //  const printUserValue = () => {
+  //     console.log("User value is:", userValue)
+  //   }
 
   useEffect(() => {
+    console.log("GameState is now: ", gameState);
     const shuffleCards = async () => {
       console.log("Game starting. Now shuffling cards.");
       let shuffledDeck = await shuffle(cards);
@@ -83,15 +86,79 @@ const Blackjack = (props) => {
     }
   }, [gameState]);
 
+  //This useEffect is the score keeper. Only the player's score is visable.
   useEffect(() => {
+    console.log("User value in use effect is: ", userValue);
+    console.log("Dealer value in use effect is: ", dealerValue);
+    let currentPlayerScore = reducer(userValue);
+    let hiddenDealerScore = reducer(dealerValue);
+    console.log(currentPlayerScore);
+    setUserScore(currentPlayerScore);
+    console.log(hiddenDealerScore);
+    setDealerScore(hiddenDealerScore);
+  }, [userValue, dealerValue]);
 
-    
-  }, [deck])
+  //This useEffect governs a bust, or a score over 21
+  useEffect(() => {
+    const busted = () => {
+      setGameState("bust");
+    };
+    if (userScore > 21) {
+      busted();
+    }
+  }, [userScore, gameState]);
+
+  //This useEffect governs a blackjack/natural 21 win
+  useEffect(() => {
+    const youWinNatural = () => {
+      setGameState("winRoundNatural");
+    };
+    if (userScore === 21 && userValue.length === 2) {
+      console.log("Natural 21 detected!");
+      youWinNatural();
+    }
+  }, [userScore, userValue]);
+
+  //This useEffect governs a standard win/loss/draw
+  useEffect(() => {
+    const youWin = () => {
+      setGameState("endRoundWin");
+    };
+    const youLose = () => {
+      setGameState("endRoundLose");
+    };
+    const itsADraw = () => {
+      setGameState("endRoundDraw")
+    }
+    if (userScore > dealerScore && gameState === "dealerEnds") {
+      console.log("Regular win!");
+      youWin();
+    } else if (userScore < dealerScore && gameState === "dealerEnds") {
+      youLose();
+    }
+  }, [userScore, gameState, dealerScore]);
+
+  //This useEffect governs a 6 Card Charlie Win
+  useEffect(() => {
+    const youWin6 = () => {
+      setGameState("win6Card");
+    };
+    if (userValue.length === 6) {
+      console.log("6 Card Charlie!");
+      youWin6();
+    }
+  }, [userValue]);
 
   return (
     <div className="App">
       <CardArea theCards={dealerCards} name="Dealer" />
       <CardArea theCards={userCards} name="Player" />
+      <InfoArea
+        gameState={gameState}
+        handleGameState={handleGameState}
+        userScore={userScore}
+        dealerScore={dealerScore}
+      />
       <ActionArea
         gameState={gameState}
         changeGamePhase={changeGamePhase}
