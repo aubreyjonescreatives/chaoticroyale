@@ -7,9 +7,9 @@
 .card-area-container {
   border: 1px solid #3b3b3b81; 
   min-height: 250px;
-  width: 600px; 
+  width: 800px; 
   border-radius: 2px; 
-  margin: 30px;
+  margin-top: 30px;
 
   .area-name {
     text-align: left; 
@@ -24,7 +24,7 @@
     display: flex;
 
     .cardItem {
-      width: 120px;
+      width: 150px;
       margin-right: 10px;
 
       // animation
