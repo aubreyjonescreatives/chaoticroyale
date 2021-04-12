@@ -10,16 +10,21 @@ import icon7 from './icons/slot_7.png'
 import flipper from './icons/flipper.png'
 
 const Tumbler = props => {
-    let iconArray = [icon1, icon2, icon3, icon4, icon5, icon6, icon7]
+    // let iconArray = [icon1, icon2, icon3, icon4, icon5, icon6, icon7]
+
+    let iconArray = [ icon1, icon1, icon1, icon1, icon1, icon1, icon1, icon2, icon2, icon2, icon2, icon2, icon3, icon3, icon3, icon4, icon4, icon5, icon5, icon6, icon7 ]
+
+  
+
     // random number to make tumbler rotation asynchronous 
     let rng = '-0.' + (Math.floor(Math.random() * 6) + 1).toString() + 's'
 
     return (
         <div className="tumbler">
             {props.active ? (
-                <img src={flipper} className="flipping" style={{animationDelay: rng}} />
+                <img src={flipper} className="flipping" style={{animationDelay: rng}} alt="animated slot icon" />
             ) : (
-                <img src={iconArray[props.number - 1]} />
+                <img src={iconArray[props.number - 1]} alt="slot icon"/>
             )}
         </div>
     )

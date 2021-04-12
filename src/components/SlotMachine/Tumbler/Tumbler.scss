@@ -4,14 +4,16 @@
     background-color: #ddd;
     display: flex;
     justify-content: space-around;
-    width: 20vw;
-    height: 20vw;
+    width: 15vw;
+    height: 15vw;
     margin: 5px;
     overflow: hidden;
 }
+
 .tumbler img {
     width: 100%;
 }
+
 .flipping {
     width: 100%;
     object-fit: cover;
