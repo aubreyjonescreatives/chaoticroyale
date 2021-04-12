@@ -1,4 +1,31 @@
 .tumbler {   
     font-size: 10rem;
     color: inherit; 
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-around;
+    width: 20vw;
+    height: 20vw;
+    margin: 5px;
+    overflow: hidden;
 }
+.tumbler img {
+    width: 100%;
+}
+.flipping {
+    width: 100%;
+    object-fit: cover;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: flipping;
+}
+// Animation for flipping through 
+@keyframes flipping {
+    0% {
+        object-position: 50% 100%;
+    }
+    100% {
+        object-position: 50% 0%;
+    }
+  }
