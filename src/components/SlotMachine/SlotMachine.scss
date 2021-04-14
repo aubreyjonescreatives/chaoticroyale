@@ -1,28 +1,113 @@
 .slot-machine {
-    .slot-tumblers {
-        
+    .slot-status {
+        text-align:center;
+        margin: 2rem 0;
+        color: #fff;
     }
+
+    .slot-tumblers {
+        display: flex;
+        justify-content: center;
+    }
+
     .bet-control {
+        justify-content: center;
         text-align: center;
         font-size: 20px;
-        button {
-            width: 20px;
+
+        .slot-bet {
+            padding: 1rem 4rem;
+            font-size: 4rem;
+            color: #fff;
+        }
+
+        button {            
+
+            display: inline-flex;
+            justify-content: center; 
+            align-items: center;
+            font-size: 3.2rem;
+            font-weight: bold;
+            line-height: 1.2;
+            padding: 0.5em var(--padding-x);
+            --padding-x: 1.2em;
+            border-width: 2px;
+            border-style: solid;
+            border-color: transparent;
+            border-radius: 2rem;
+            color: #fff;            
+            
+            
+            &.add {
+                background: rgb(58, 139, 58);
+
+                &:hover {
+                   background:  rgb(71, 156, 71);
+                }
+
+                &:active {
+                    background: rgb(84, 170, 84);
+                }          
+            }   
+
+            &.subtract {
+                background: rgb(253, 93, 93);
+
+                &:hover {
+                    background: rgb(250, 108, 108);
+                }
+
+                &:active {
+                    background: rgb(252, 119, 119);
+                }
+            }
+
+            &:disabled {
+                background: #ccc;
+
+                &:hover {
+                    background: #ccc;
+                }
+            }
+        
         }
     }
 
     .slot-actions {
-        background-color: white;
+        background-color: #fff;
         border-radius: 10px;
-        margin: 30px;
         padding: 10px;
         font-size: 20px;
-        width: 600px;
 
         .slot-btn {
-            border: none;
-            border-radius: 5px;
+            width: 100%;
             margin-right: 10px;
             padding: 5px;
+
+            border: none;
+            border-radius: 5px;   
+            font-size: 4rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #fff;
+
+            background: rgb(58, 139, 58);
+
+            &:hover {
+                background:  rgb(71, 156, 71);
+            }
+
+            &:active {
+                background: rgb(84, 170, 84);
+            } 
+
+            &:disabled {
+                background: #ccc;
+
+                &:hover {
+                    background: #ccc;
+                }
+            }
         }
     }
 }
