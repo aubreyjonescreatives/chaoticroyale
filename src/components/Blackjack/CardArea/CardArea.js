@@ -8,6 +8,7 @@ const CardArea = (props) => {
       <div className="card-area">
       { props.theCards.map((card, index) => {
         console.log(card)
+
         return (
           <div className="cardItem" key={index}>
             <img src={`./images/${card.image}`} alt={'Card ' + card.name} name={card.value}/>
