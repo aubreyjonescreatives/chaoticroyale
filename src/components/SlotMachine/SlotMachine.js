@@ -7,7 +7,7 @@ import Tumbler from './Tumbler/Tumbler'
 
 const SlotMachine = props => {
     // Random numbers for tumblers, win state true/false, and the winning value
-    const [randomNumbers, setRandomNumbers] = useState([21,21,21])
+    const [randomNumbers, setRandomNumbers] = useState([21,21,21,21,21])
     const [winState, setWinState] = useState(null)
     const [winValue, setWinValue] = useState(0)
 
@@ -26,7 +26,7 @@ const SlotMachine = props => {
         // Generate a random number for each element in the randomNumbers array
         setTimeout(() => {
             setActive(false)
-            const tumblerValues = [randomNumber(), randomNumber(), randomNumber()]       
+            const tumblerValues = [randomNumber(), randomNumber(), randomNumber(), randomNumber(), randomNumber()]       
             setRandomNumbers(tumblerValues)
         }, 3000)
     }
@@ -50,7 +50,7 @@ const SlotMachine = props => {
    
     
     const isBetween = (val1, val2, valArray) => {
-        let between = [false,false,false]
+        let between = [false,false,false,false,false]
         
         for (let i in valArray) {
 
@@ -62,7 +62,7 @@ const SlotMachine = props => {
 
         }
 
-        return between[0] && between[1] && between[2]
+        return between[0] && between[1] && between[2] && between[3] && between[4]
     }   
 
     useEffect(()=> {
@@ -76,6 +76,8 @@ const SlotMachine = props => {
 
      
     }, [randomNumbers, winState, bet],)
+
+    
 
 
     const setWinAmount = (val) => {
@@ -113,10 +115,11 @@ const SlotMachine = props => {
             </div>
 
             <div className="row mb-5 slot-tumblers">
-                { randomNumbers[0] } { randomNumbers[1] } { randomNumbers[2] }
                 <Tumbler number={ randomNumbers[0] } active={ active } />
                 <Tumbler number={ randomNumbers[1] } active={ active } />
                 <Tumbler number={ randomNumbers[2] } active={ active } />
+                <Tumbler number={ randomNumbers[3] } active={ active } />
+                <Tumbler number={ randomNumbers[4] } active={ active } />
             </div>   
 
             <div className="row mb-5 bet-control">
