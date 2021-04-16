@@ -42,7 +42,7 @@ const InfoArea = (props) => {
           <div>
             <p>You win!</p>
             <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
+            Your score: {props.userScore} Dealer score: {props.dealerScore < 21 ? props.dealerScore : `BUST! ${props.dealerScore}`}
             </p>
             <button onClick={() => props.handleGameState("addOne")}>
               New Hand?

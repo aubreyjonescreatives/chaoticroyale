@@ -391,4 +391,6 @@ export const reducer = (valueArray) => {
   }
   
 };
+
+
 export default cards;
