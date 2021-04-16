@@ -222,7 +222,7 @@ const Blackjack = (props) => {
     const youWin6 = () => {
       setGameState("win6Card");
     };
-    if (userValue.length === 6 && userScore <= 21) {
+    if (userValue.length === 6) {
       console.log("6 Card Charlie!");
       youWin6();
     }
