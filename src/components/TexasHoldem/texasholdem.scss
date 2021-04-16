@@ -1,71 +1,114 @@
-
-.game-container {
-    display: flex;
+.actions {
+    display: flex; 
 }
 
-.card-area {
-
-}
-
-
-
-.dealerTitle {
-    margin: 25px 0px 25px 25px; 
-    color: white; 
-    font-size: 24px; 
-}
 
 
 .dealerArea {
-display: grid; 
-justify-content: first;
-border: 1px solid white;
-width: 500px; 
-height: 300px; 
-margin: 100px 30px; 
+    width: 50%;  
+}
 
+.dealerTitle {
+    text-align: center; 
+    padding: 20px; 
+    font-size: 36px; 
+    color: white; 
+}
 
+.dealerButton {
+    display: inline-flex;
+    justify-content: center; 
+    width: 150px; 
+    padding: 10px;
+    border: none; 
+    margin: 20px;  
+    font-size: 16px; 
+     
 }
 
 
+.actingArea {
+    width: 50%;  
+}
 
-.playerTitle {
-    margin: 25px 0px 25px 25px; 
+.actingTitle {
+    text-align: center; 
+    padding: 20px; 
+    font-size: 36px; 
+    color: white; 
+}
+
+.actingButton {
+    display: inline-flex;
+    justify-content: center; 
+    width: 100px; 
+    padding: 10px;
+    border: none; 
+    margin: 20px;  
+    font-size: 16px; 
+     
+}
+
+.game-container {
+    display: flex;
+    width: 100%; 
+    margin: 20px; 
+}
+
+
+.computerArea {
+    width: 30%; 
+    border: 1px solid white; 
+    margin: 20px;
+    height: 400px;  
+}
+
+.computerTitle {
+    margin: 10px; 
     color: white; 
     font-size: 24px; 
-}
-
-.playerArea {
-display: grid; 
-justify-content: first;
-border: 1px solid white;
-width: 500px; 
-height: 300px; 
-margin: 100px 30px; 
-
-
-}
-
-
-
-
-
-
-.communityTitle {
-    margin: 25px 0px 25px 100px; 
-    color: white; 
-    font-size: 24px; 
-    text-align: left; 
 }
 
 
 .communityArea {
-display: grid; 
-justify-content: end; 
-border: 1px solid white;
-width: 300px; 
-height: 500px; 
-margin: 100px 30px; 
+    width: 30%; 
+    border: 1px solid white; 
+    margin: 20px; 
+    height: 400px; 
+}
 
 
+.communityTitle {
+    margin: 10px; 
+    color: white; 
+    font-size: 24px; 
+}
+
+
+.playerArea {
+    width: 30%;
+    border: 1px solid white; 
+    margin: 20px; 
+    height: 400px;  
+    
+}
+
+
+.playerTitle {
+    margin: 10px; 
+    color: white; 
+    font-size: 24px; 
+}
+
+
+.holeDeals {
+    list-style-type: none; 
+    display: inline-flex; 
+    
+}
+
+
+.cardImage {
+    width: 100px; 
+    height: 200px; 
 }
