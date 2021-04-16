@@ -6,9 +6,8 @@ const CardArea = (props) => {
     <div className="card-area-container">
       <div className="area-name">{props.name}</div>
       <div className="card-area">
-
       { props.theCards.map((card, index) => {
-        console.log(card)
+        //console.log(card)
 
         return (
           <div className="cardItem" key={index}>

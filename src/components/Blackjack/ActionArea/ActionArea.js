@@ -11,12 +11,26 @@ const ActionArea = (props) => {
           Begin Game
         </button>
       ) : null}
+      {props.gameState === "shufflingCards" ? (
+        <button className="actionBtn">Shuffling cards...</button>
+      ) : null}
       {props.gameState === "addOne" ? (
         <button onClick={props.freshDeal} className="actionBtn">
           Deal
         </button>
       ) : null}
-      {/* {props.gameState === "addOne" ? <button onClick={() => props.dealCard("user", "up")} className="actionBtn" >Add to User</button> : null} */}
+      {props.gameState === "endRoundWin" ||
+      props.gameState === "endRoundLose" ||
+      props.gameState === "endRoundDraw" ||
+      props.gameState === "winRoundNatural" ||
+      props.gameState === "bust" ? (
+        <button
+          onClick={() => props.handleGameState("addOne")}
+          className="actionBtn"
+        >
+          Play Again?
+        </button>
+      ) : null}
       {props.gameState === "userPhase" ? (
         <button
           onClick={() => props.dealCard("user", "up", false)}
@@ -33,9 +47,9 @@ const ActionArea = (props) => {
           Stand
         </button>
       ) : null}
+
       {/* <button onClick={props.addDealerCard} className="actionBtn" >Add Dealer Card</button>
       <button onClick={props.addUserCard} className="actionBtn" >Add User Card</button> */}
-
     </div>
   );
 };
