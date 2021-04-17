@@ -16,6 +16,7 @@ const Blackjack = (props) => {
   const [dealerValue, setDealerValue] = useState([]);
   const [userScore, setUserScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
+  const [theBet, setTheBet] = useState(0);
 
   const newHand = () => {
     setUserValue([]);
@@ -152,7 +153,9 @@ const Blackjack = (props) => {
       let shuffledDeck = await shuffle(cards);
       console.log("Shuffled cards:", shuffledDeck);
       handleDeck(shuffledDeck);
-      setGameState("addOne");
+      //here, set state to take bet before addOne. addOne will happen upon bet confirm.
+      //setGameState("addOne");
+      setGameState("betTime");
     };
 
     if (gameState === "gameStart") {
@@ -185,7 +188,6 @@ const Blackjack = (props) => {
   }, [userScore, userValue]);
 
   //This useEffect governs a standard win/loss/draw/dealer bust after the dealer ends his turn
-  //
   useEffect(() => {
     const youWin =  () => {
       setGameState("endRoundWin");
@@ -217,6 +219,25 @@ const Blackjack = (props) => {
     ender();
   }, [userScore, gameState, dealerScore]);
 
+  const betSetter = () => {
+    console.log("The bet is now set to: ", theBet)
+    handleGameState("addOne")
+  }
+
+  useEffect(()=>{
+    if(theBet > 500) {
+      setTheBet(500)
+    }
+    if(theBet < 20) {
+      setTheBet(20)
+    }
+  },[theBet])
+
+  const playAgain = () => {
+    newHand()
+    handleGameState("betTime")
+  }
+
   //This useEffect governs a 6 Card Charlie Win
   useEffect(() => {
     const youWin6 = () => {
@@ -228,18 +249,12 @@ const Blackjack = (props) => {
     }
   }, [userValue, userScore]);
 
-  //Need a useEffect that
-
   return (
-    <div className="App">
+    <div className="Blackjack">
+      <div className="CardArea">
       <CardArea theCards={dealerCards} name="Dealer" />
       <CardArea theCards={userCards} name="Player" />
-      <InfoArea
-        gameState={gameState}
-        handleGameState={handleGameState}
-        userScore={userScore}
-        dealerScore={dealerScore}
-      />
+      </div>
       <ActionArea
         gameState={gameState}
         changeGamePhase={changeGamePhase}
@@ -248,7 +263,17 @@ const Blackjack = (props) => {
         dealCard={dealCard}
         freshDeal={freshDeal}
         handleGameState={handleGameState}
+        betSetter={betSetter}
+        setTheBet ={setTheBet}
+        playAgain={playAgain}
       />
+      <InfoArea
+        gameState={gameState}
+        handleGameState={handleGameState}
+        userScore={userScore}
+        dealerScore={dealerScore}
+      />
+      
     </div>
   );
 };

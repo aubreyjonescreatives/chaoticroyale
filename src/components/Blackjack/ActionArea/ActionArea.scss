@@ -3,19 +3,62 @@
   border-radius: 10px;
   padding: 10px;
   font-size: 20px;
-  width: 250px;
-  max-height: 500px;
-  display: grid;
-  grid-template-columns: 1fr;
-  margin: 0 auto;
-  margin-top: 30px;  
+  width: 260px;
+  height: 230px;
+  //max-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // display: grid;
+  // grid-template-columns: 1fr;
+  // margin: 0 auto;
+  //margin-top: 30px;  
 
+  .hitStand{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+  }
   .actionBtn {
     border: none;
     border-radius: 5px;
-    margin-right: 10px;
+    // margin-right: 10px;
     padding: 5px;
-    margin-top: 5px;
+    //margin-top: 5px;
+    width: 100%;
+
+  }
+  .betArea{
+    text-align: center;
+    p{
+      font-size: 1rem;
+      margin: .2rem 0
+    }
+    label{
+      display: flex;
+      flex-direction: column;
+
+      input{
+        text-align: center;
+        font-size: 2.5rem !important;
+        margin-top: .4rem;
+        //max-width: 53%;
+       
+      }
+      .betBox1{
+        &:before { 
+          content:"\0024"; }
+          font-size: 2.5rem;
+      }      
+    }
+    .betButtons{
+      display: flex;
+      justify-content: space-between;
+      button:nth-child(2){
+        margin-left: 5px;
+      }
+    }
 
   }
 }
