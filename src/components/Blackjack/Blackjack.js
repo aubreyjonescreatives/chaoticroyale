@@ -16,7 +16,7 @@ const Blackjack = (props) => {
   const [dealerValue, setDealerValue] = useState([]);
   const [userScore, setUserScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
-  const [theBet, setTheBet] = useState(0);
+  const [theBet, setTheBet] = useState(10);
 
   const newHand = () => {
     setUserValue([]);
@@ -226,12 +226,22 @@ const Blackjack = (props) => {
   }
 
   useEffect(()=>{
-    if(theBet > 500) {
-      setTheBet(500)
+
+    const autoValidate = async () => {
+      if(theBet > 500) {
+        await sleep(50)
+        setTheBet(500)
+      }
+      if(theBet == 0) {
+        await sleep(50)
+        setTheBet(10)
+      }
+      if (Number.isInteger(theBet) === false ) {
+        await sleep(50)
+        setTheBet(Math.floor(theBet))
+      }
     }
-    if(theBet < 20) {
-      setTheBet(20)
-    }
+    autoValidate()
   },[theBet])
 
   const playAgain = () => {
@@ -261,6 +271,7 @@ const Blackjack = (props) => {
         changeGamePhase={changeGamePhase}
         addCard={getCard}
         deck={deck}
+        theBet={theBet}
         dealCard={dealCard}
         freshDeal={freshDeal}
         handleGameState={handleGameState}
