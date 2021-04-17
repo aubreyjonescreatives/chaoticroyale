@@ -18,7 +18,12 @@
   .hitStand{
     display: flex !important;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 100%;
+  
+    button:nth-child(2){
+      margin-top: 5px;
+    }
   }
   .actionBtn {
     border: none;
