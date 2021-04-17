@@ -1,9 +1,11 @@
 .Blackjack {
   display: grid;
+  grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
+    "CardArea BetArea"
     "CardArea ActionArea"
-    "CardArea ActionArea";
+    "InfoArea InfoArea";
   max-width: 1400px;
   margin: 0 auto;
 
@@ -12,8 +14,12 @@
   }
   .ActionArea {
     grid-area: ActionArea;
+    margin-left: 10px;
   }
   .BetArea {
     grid-area: ActionArea;
+  }
+  .results{
+    grid-area: InfoArea;
   }
 }
