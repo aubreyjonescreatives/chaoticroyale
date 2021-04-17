@@ -124,6 +124,7 @@ const Blackjack = (props) => {
     const userPhaseCheck = async () =>{
       if (userScore < 21 && userCards.length === 2) {
         console.log(`Your score is ${userScore} after initial deal.`);
+        await sleep(750)
         setGameState("userPhase");
       }
       if (userScore === 21 && userCards.length > 2) {
