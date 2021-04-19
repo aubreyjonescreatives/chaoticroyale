@@ -7,7 +7,7 @@ import Tumbler from './Tumbler/Tumbler'
 
 const SlotMachine = props => {
     // Random numbers for tumblers, win state true/false, and the winning value
-    const [randomNumbers, setRandomNumbers] = useState([21,21,21,21,21])
+    const [randomNumbers, setRandomNumbers] = useState([9,1,19,20,21])
     const [winState, setWinState] = useState(null)
     const [winValue, setWinValue] = useState(0)
 
@@ -102,7 +102,7 @@ const SlotMachine = props => {
 
     
     useEffect(()=>{
-        console.log(winState)
+ 
 
         // If we won, set the win value to the tumbler tier times the number of tumblers plus the bet amount
         if (winState?.win) setWinValue(()=> {
