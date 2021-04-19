@@ -8,6 +8,7 @@ import NavBar from './components/navbar/NavBar'
 import Landing from './components/Landing/Landing'
 import Blackjack from './components/Blackjack/Blackjack'
 import SlotMachine from './components/SlotMachine/SlotMachine'
+import TexasHoldem from './components/TexasHoldem/TexasHoldem'
 
 function App() {
   const [score, setScore] = useState(92)
