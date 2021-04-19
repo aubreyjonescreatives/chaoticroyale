@@ -22,6 +22,8 @@ const SlotMachine = props => {
     const [bet, setBet] = useState(10)
     
     const generateNumbers = () => {
+        setBet(10)
+
         setActive(true)
         // Reset the win value to 0 and win state to false
         setWinValue(0)
@@ -142,7 +144,7 @@ const SlotMachine = props => {
             </div>         
 
             <div className="row slot-actions">
-                <button className="slot-btn" onClick={ generateNumbers } disabled={active ? true : false} >Pull</button>
+                <button className="slot-btn" onClick={ generateNumbers } disabled={active || score.get < 10 ? true : false} >Pull</button>
             </div>            
         </div>      
 

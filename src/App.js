@@ -10,7 +10,7 @@ import Blackjack from './components/Blackjack/Blackjack'
 import SlotMachine from './components/SlotMachine/SlotMachine'
 
 function App() {
-  const [score, setScore] = useState(99)
+  const [score, setScore] = useState(92)
 
   return (
     <div className="App">
