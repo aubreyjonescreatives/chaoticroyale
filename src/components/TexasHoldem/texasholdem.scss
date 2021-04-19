@@ -1,0 +1,114 @@
+.actions {
+    display: flex; 
+}
+
+
+
+.dealerArea {
+    width: 50%;  
+}
+
+.dealerTitle {
+    text-align: center; 
+    padding: 20px; 
+    font-size: 36px; 
+    color: white; 
+}
+
+.dealerButton {
+    display: inline-flex;
+    justify-content: center; 
+    width: 150px; 
+    padding: 10px;
+    border: none; 
+    margin: 20px;  
+    font-size: 16px; 
+     
+}
+
+
+.actingArea {
+    width: 50%;  
+}
+
+.actingTitle {
+    text-align: center; 
+    padding: 20px; 
+    font-size: 36px; 
+    color: white; 
+}
+
+.actingButton {
+    display: inline-flex;
+    justify-content: center; 
+    width: 100px; 
+    padding: 10px;
+    border: none; 
+    margin: 20px;  
+    font-size: 16px; 
+     
+}
+
+.game-container {
+    display: flex;
+    width: 100%; 
+    margin: 20px; 
+}
+
+
+.computerArea {
+    width: 30%; 
+    border: 1px solid white; 
+    margin: 20px;
+    height: 400px;  
+}
+
+.computerTitle {
+    margin: 10px; 
+    color: white; 
+    font-size: 24px; 
+}
+
+
+.communityArea {
+    width: 30%; 
+    border: 1px solid white; 
+    margin: 20px; 
+    height: 400px; 
+}
+
+
+.communityTitle {
+    margin: 10px; 
+    color: white; 
+    font-size: 24px; 
+}
+
+
+.playerArea {
+    width: 30%;
+    border: 1px solid white; 
+    margin: 20px; 
+    height: 400px;  
+    
+}
+
+
+.playerTitle {
+    margin: 10px; 
+    color: white; 
+    font-size: 24px; 
+}
+
+
+.holeDeals {
+    list-style-type: none; 
+    display: inline-flex; 
+    
+}
+
+
+.cardImage {
+    width: 100px; 
+    height: 200px; 
+}
