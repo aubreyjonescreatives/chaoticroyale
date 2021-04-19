@@ -3,11 +3,11 @@
   grid-gap: 10px;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
-    "CardArea BetArea"
     "CardArea ActionArea"
-    "InfoArea InfoArea";
+    "CardArea ActionArea";
   max-width: 1400px;
   margin: 0 auto;
+  place-items: center;
 
   .CardArea {
     grid-area: CardArea;
@@ -18,8 +18,5 @@
   }
   .BetArea {
     grid-area: ActionArea;
-  }
-  .results{
-    grid-area: InfoArea;
   }
 }

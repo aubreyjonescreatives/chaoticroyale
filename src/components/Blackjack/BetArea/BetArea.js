@@ -6,19 +6,13 @@ const BetArea = (props) => {
 
   const [curBet, setCurBet] = useState('')
 
-  const betChange = (e) => {
-    setCurBet(e.target.value)
-  }
-
   return (
     <div className="BetArea">
       <p>Balance:</p>
       <h1>$20,000</h1>
       <p>Enter Bet:</p>
-      <input type="text" className="betInput" value={curBet} onChange={betChange} />
-      <button className="betBtn" onClick={() => props.startGame(curBet) }>Place Bet</button>
-
-
+      <input className="betInput" type="number" value={props.theBet} min={10} max={20000} step={1} onChange={e => props.setTheBet(e.target.value)}/>
+      <button className="betBtn" onClick={props.betSetter}>Place Bet</button>
     </div>
   )
 }
