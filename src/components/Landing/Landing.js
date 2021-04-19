@@ -39,6 +39,18 @@ const Landing = () => {
       </Card.Body>
       </NavLink>
     </Card>
+
+      
+    <Card className="card-container">
+        <NavLink to="/texasholdem" className="navLink">
+      <Card.Img variant="top" src={BJImage} className="card-image"/>
+      <Card.Body>
+        <Card.Text className="gameText">
+          Texas Holdem
+        </Card.Text>
+      </Card.Body>
+      </NavLink>
+    </Card>
     </div>
    
     </div>
