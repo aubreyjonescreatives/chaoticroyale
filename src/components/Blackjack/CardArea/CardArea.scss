@@ -11,12 +11,21 @@
   border-radius: 2px; 
   margin-top: 30px;
   margin-left: 30px;
+  
   .area-name {
     text-align: left; 
     font-size: 24px; 
     padding: 20px;
     padding-bottom: 0;
     font-weight: bold;
+
+    .score {
+      background-color: rgba(31, 31, 31, 0.849);
+      border-radius: 5px;
+      color: white;
+      padding: 5px;
+      margin-left: 5px;
+    }
   }
   
   .card-area {

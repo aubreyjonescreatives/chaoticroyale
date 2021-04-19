@@ -5,7 +5,6 @@ import "./Blackjack.scss";
 // import axios from "axios";
 import CardArea from "./CardArea/CardArea";
 import ActionArea from "./ActionArea/ActionArea";
-import InfoArea from "./InfoArea/InfoArea";
 
 const Blackjack = (props) => {
   const [gameState, setGameState] = useState("pregame");
@@ -232,7 +231,7 @@ const Blackjack = (props) => {
         await sleep(50)
         setTheBet(500)
       }
-      if(theBet == 0) {
+      if(theBet === 0) {
         await sleep(50)
         setTheBet(10)
       }
@@ -263,8 +262,8 @@ const Blackjack = (props) => {
   return (
     <div className="Blackjack">
       <div className="CardArea">
-      <CardArea theCards={dealerCards} name="Dealer" />
-      <CardArea theCards={userCards} name="Player" />
+        <CardArea theCards={dealerCards} name="Dealer" score={dealerScore} />
+        <CardArea theCards={userCards} name="Player" score={userScore} />
       </div>
       <ActionArea
         gameState={gameState}
@@ -278,10 +277,6 @@ const Blackjack = (props) => {
         betSetter={betSetter}
         setTheBet ={setTheBet}
         playAgain={playAgain}
-      />
-      <InfoArea
-        gameState={gameState}
-        handleGameState={handleGameState}
         userScore={userScore}
         dealerScore={dealerScore}
       />
