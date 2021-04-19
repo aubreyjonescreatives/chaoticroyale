@@ -9,14 +9,13 @@ const InfoArea = (props) => {
         ) : null}
       </div>
       <div>
-       
         {props.gameState === "bust" ? (
           <div>
-             <h3>Bust! </h3>
+            <h3>Bust! </h3>
             <p>You lost the bet. </p>
-            <button onClick={() => props.handleGameState("addOne")}>
+            {/* <button onClick={() => props.handleGameState("addOne")}>
               New Hand?
-            </button>
+            </button> */}
           </div>
         ) : null}
         {props.gameState === "winRoundNatural" ? (
@@ -25,39 +24,47 @@ const InfoArea = (props) => {
             <p>
               Your score: {props.userScore} Dealer score: {props.dealerScore}
             </p>
-            <button onClick={() => props.handleGameState("addOne")}>
+            {/* <button onClick={() => props.handleGameState("addOne")}>
               New Hand?
-            </button>
+            </button> */}
           </div>
         ) : null}
         {props.gameState === "win6Card" ? (
           <div>
             <p>Six Card Charlie! You win!</p>
-            <button onClick={() => props.handleGameState("addOne")}>
+            {/* <button onClick={() => props.handleGameState("addOne")}>
               New Hand?
-            </button>
+            </button> */}
           </div>
         ) : null}
         {props.gameState === "endRoundWin" ? (
           <div>
             <p>You win!</p>
             <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
+              Your score: {props.userScore} Dealer score:{" "}
+              {props.dealerScore < 21
+                ? props.dealerScore
+                : `BUST! ${props.dealerScore}`}
             </p>
-            <button onClick={() => props.handleGameState("addOne")}>
+            {/* <button onClick={() => props.handleGameState("addOne")}>
               New Hand?
-            </button>
+            </button> */}
           </div>
         ) : null}
-                {props.gameState === "endRoundLose" ? (
+        {props.gameState === "endRoundLose" ? (
           <div>
             <p>You lose the bet!</p>
             <p>
               Your score: {props.userScore} Dealer score: {props.dealerScore}
             </p>
-            <button onClick={() => props.handleGameState("addOne")}>
-              New Hand?
-            </button>
+          </div>
+        ) : null}
+        {props.gameState === "endRoundDraw" ? (
+          <div>
+            <p>It's a draw. Bet money returned.</p>
+            <p>
+              Your score: {props.userScore} Dealer score: {props.dealerScore}
+            </p>
           </div>
         ) : null}
       </div>

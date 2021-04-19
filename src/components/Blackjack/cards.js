@@ -359,7 +359,7 @@ export const reducer = (valueArray) => {
     theScore = 12
     return theScore
   }
-  if (valueArray.includes("1or11")) {
+  if (valueArray.includes("1or11") && valueArray != ["1or11", "1or11"]) {
     console.log("Has an ace!")
     let numAces = valueArray.filter((item => item === "1or11")).length;
     let withoutAces = valueArray.filter(value => value !== "1or11");
@@ -391,4 +391,6 @@ export const reducer = (valueArray) => {
   }
   
 };
+
+
 export default cards;
