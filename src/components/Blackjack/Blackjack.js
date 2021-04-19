@@ -16,6 +16,7 @@ const Blackjack = (props) => {
   const [userScore, setUserScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
   const [theBet, setTheBet] = useState(10);
+  const [showDealerScore, setShowDealerScore] = useState(false);
 
   const newHand = () => {
     setUserValue([]);
@@ -90,7 +91,22 @@ const Blackjack = (props) => {
   useEffect( () => {
     const dealerNeedCardCheck = () => {
       if (gameState === "dealerPhase") {
+
+        // flip face down card 
+        if (dealerCards[0].image.includes('CardFix1.svg')) {
+          console.log('flipping card')
+          setDealerCards(dealerCards.map(card => {
+            let curCard = card
+            if (card.image.includes('CardFix1.svg')) {
+              curCard.image = `cards/${curCard.name}.svg`
+            }
+            return curCard
+          }))
+        }
+
         console.log("Dealer phase entered. Checking score.");
+        setShowDealerScore(true)
+
         if (dealerScore < userScore) {
           console.log("Dealer score is lower than user. Drawing card.");
           handleDealerAI();
@@ -146,6 +162,7 @@ const Blackjack = (props) => {
   //Also console logs the state whenever the gameState changes.
   useEffect(() => {
     console.log("GameState is now: ", gameState);
+
     const shuffleCards = async () => {
       console.log("Game starting. Now shuffling cards.");
       setGameState("shufflingCards")
@@ -246,6 +263,7 @@ const Blackjack = (props) => {
   const playAgain = () => {
     newHand()
     handleGameState("betTime")
+    setShowDealerScore(false)
   }
 
   //This useEffect governs a 6 Card Charlie Win
@@ -259,10 +277,20 @@ const Blackjack = (props) => {
     }
   }, [userValue, userScore]);
 
+  const getDealerValue = () => {
+    if (!showDealerScore && dealerCards[0] !== undefined) {
+      console.log(`${dealerScore} - ${dealerCards[0].value}`)
+      let subtractVal = dealerCards[0].value !== '1or11' ? dealerCards[0].value : 11
+      return dealerScore - subtractVal
+    } else {
+      return dealerScore
+    }
+  }
+
   return (
     <div className="Blackjack">
       <div className="CardArea">
-        <CardArea theCards={dealerCards} name="Dealer" score={dealerScore} />
+        <CardArea theCards={dealerCards} name="Dealer" score={ getDealerValue() } />
         <CardArea theCards={userCards} name="Player" score={userScore} />
       </div>
       <ActionArea
