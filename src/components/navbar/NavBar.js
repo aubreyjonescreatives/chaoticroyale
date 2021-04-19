@@ -1,8 +1,13 @@
+import {useContext} from 'react'
 import './NavBar.scss'
 import { NavLink } from 'react-router-dom'
 
+import { ScoreContext } from "../../ScoreContext";
+
 const NavBar = props => {
-    
+    const score = useContext(ScoreContext)
+
+    const scoreFormat = (val) => val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     
     return (
         <header className="main-navbar">
@@ -19,7 +24,7 @@ const NavBar = props => {
 
                     <div className="d-flex score-balance justify-self-end">
                         <h3 className="high-score pr-lg-5 mr-lg-5">High Score: $150,000</h3>
-                        <h3 className="balance">Balance: $20,000</h3>
+                        <h3 className="balance">Balance: ${scoreFormat(score.get)}</h3>
                     </div>
                 </div>
             </div>
