@@ -21,7 +21,7 @@ const SlotMachine = props => {
         setActive(true)
         // Reset the win value to 0 and win state to false
         setWinValue(0)
-        setWinState(false)     
+        // setWinState(win: false)     
 
         // Generate a random number for each element in the randomNumbers array
         setTimeout(() => {
@@ -32,20 +32,44 @@ const SlotMachine = props => {
     }
 
     const checkWin = n => {
-        // Check for win state -- compare the values of the tumblers
-        // if ( n[0] === n[1] && n[0] === n[2] ) return true
-
-        // If n is between number 1 and number 2
-
-        if ( isBetween(0, 8, n) ) return true
-        if ( isBetween(7, 13, n) ) return true
-        if ( isBetween(12, 16, n) ) return true
-        if ( isBetween(15, 18, n) ) return true
-        if ( isBetween(17, 20, n) ) return true
-        if ( isBetween(19, 21, n) ) return true
-        if ( isBetween(20, 22, n) ) return true
+        // Check for win state -- compare the values of the tumblers 
         
-        return false
+        const ranges = [ 
+            [0,8],
+            [7,13],
+            [12,16],
+            [15,18],
+            [17,20],
+            [19,21],
+            [20,22]
+        ]
+
+        for (let i = 0; i < ranges.length; i++) {
+            const one = ranges[i][0]
+            const two = ranges[i][1]
+
+            const obj = isBetween(one, two, n)
+
+            // If we have a win, break the loop and return the object
+            if (obj.win) {
+                return {
+                    win: true,
+                    tumblers: i + 1, // Current value of the loop iterator + 1
+                    count: obj.count
+                }
+            }
+        }
+
+        // If n[x] is between number 1 and number 2
+        // if ( isBetween(0, 8, n) ) return { win: true, tumblers: 1 count: }
+        // if ( isBetween(7, 13, n) ) return { win: true, tumblers: 2 }
+        // if ( isBetween(12, 16, n) ) return { win: true, tumblers: 3 }
+        // if ( isBetween(15, 18, n) ) return { win: true, tumblers: 4 }
+        // if ( isBetween(17, 20, n) ) return { win: true, tumblers: 5 }
+        // if ( isBetween(19, 21, n) ) return { win: true, tumblers: 6 }
+        // if ( isBetween(20, 22, n) ) return { win: true, tumblers: 7 }
+        
+        return { win: false, tumblers: 0, count: 0 }
     } 
    
     
@@ -62,40 +86,50 @@ const SlotMachine = props => {
 
         }
 
-        return between[0] && between[1] && between[2] && between[3] && between[4]
+        if ( between[0] && between[1] ) return { win: true, count:2 }
+
+        if ( between[0] && between[1] && between[3] ) return { win: true, count: 3 }
+
+        if ( between[0] && between[1] && between[2] && between[3]) return { win: true, count: 4 }
+
+        if ( between[0] && between[1] && between[2] && between[3] && between[4] ) return { win: true, count: 5 }
+
+        return { win: false, count: 0 }
     }   
 
     useEffect(()=> {
 
         // When the random numbers update, set the win state
-        setWinState( checkWin(randomNumbers) )
-
-        // If winState is true, Set the winValue to the return value of setWinAmount    
-
-        if(winState) setWinValue( setWinAmount(randomNumbers[0]) + bet)
-
-     
-    }, [randomNumbers, winState, bet],)
+        setWinState( checkWin(randomNumbers)?.win )
+    
+    }, [ randomNumbers ])
 
     
+    useEffect(()=>{
+        console.log(winState)
 
+        if (winState?.win) setWinValue(()=> {
+            return winState.tumblers * winState.count + bet
+        })
 
-    const setWinAmount = (val) => {
+    },[ winState, bet ])
 
-        if (val < 8) return 1
+    // const setWinAmount = (val) => {
 
-        if (val > 7 && val < 13) return 2
+    //     if (val < 8) return 1
 
-        if (val > 12 && val < 16 ) return 3
+    //     if (val > 7 && val < 13) return 2
 
-        if (val > 15 && val < 18 ) return 4
+    //     if (val > 12 && val < 16 ) return 3
 
-        if (val > 17 && val < 20) return 5
+    //     if (val > 15 && val < 18 ) return 4
 
-        if (val > 19 && val < 21) return 6
+    //     if (val > 17 && val < 20) return 5
 
-        if (val === 21) return 7
-    }
+    //     if (val > 19 && val < 21) return 6
+
+    //     if (val === 21) return 7
+    // }
 
     const randomNumber = () => {
         // Generate a random number between 1 and 21, and increase the chances for smaller numbers 
@@ -110,6 +144,7 @@ const SlotMachine = props => {
                 recycle={false}
             />
             <div className="slot-status">
+                {winValue}
                 <h1>{ winState ? 'Win!' : 'Nope.' }</h1>
                 <h2>{ winState ? `You won $${ winValue }!` : 'You win nothing.' }</h2>               
             </div>
