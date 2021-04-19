@@ -68,7 +68,7 @@ const ActionArea = (props) => {
         <div className="betArea">
         <label>Set your Bet
           <div className="betBox1">
-          <input type="number" value={props.theBet} min={10} max={500} step={1} onChange={e => props.setTheBet(e.target.value)}/>
+          <input type="number" value={props.theBet} nChange={e => props.setTheBet(e.target.value)}/>
           </div>
         </label>
         <p>Min: $10  Max: $500</p>

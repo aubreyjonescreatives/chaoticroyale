@@ -7,6 +7,7 @@
     "CardArea ActionArea";
   max-width: 1400px;
   margin: 0 auto;
+  place-items: center;
 
   .CardArea {
     grid-area: CardArea;

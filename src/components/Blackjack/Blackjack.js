@@ -5,6 +5,7 @@ import "./Blackjack.scss";
 // import axios from "axios";
 import CardArea from "./CardArea/CardArea";
 import ActionArea from "./ActionArea/ActionArea";
+import BetArea from './BetArea/BetArea';
 
 const Blackjack = (props) => {
   const [gameState, setGameState] = useState("pregame");
@@ -244,9 +245,9 @@ const Blackjack = (props) => {
   useEffect(()=>{
 
     const autoValidate = async () => {
-      if(theBet > 500) {
+      if(theBet > 20000) {
         await sleep(50)
-        setTheBet(500)
+        setTheBet(20000)
       }
       if(theBet === 0) {
         await sleep(50)
@@ -293,21 +294,31 @@ const Blackjack = (props) => {
         <CardArea theCards={dealerCards} name="Dealer" score={ getDealerValue() } />
         <CardArea theCards={userCards} name="Player" score={userScore} />
       </div>
-      <ActionArea
-        gameState={gameState}
-        changeGamePhase={changeGamePhase}
-        addCard={getCard}
-        deck={deck}
-        theBet={theBet}
-        dealCard={dealCard}
-        freshDeal={freshDeal}
-        handleGameState={handleGameState}
-        betSetter={betSetter}
-        setTheBet ={setTheBet}
-        playAgain={playAgain}
-        userScore={userScore}
-        dealerScore={dealerScore}
-      />
+      { gameState !== 'betTime' && (
+        <ActionArea
+          gameState={gameState}
+          changeGamePhase={changeGamePhase}
+          addCard={getCard}
+          deck={deck}
+          theBet={theBet}
+          setTheBet ={setTheBet}
+          dealCard={dealCard}
+          freshDeal={freshDeal}
+          handleGameState={handleGameState}
+          betSetter={betSetter}
+          playAgain={playAgain}
+          userScore={userScore}
+          dealerScore={dealerScore}
+        />
+      )}
+      
+      { gameState === 'betTime' && (
+        <BetArea 
+          theBet={theBet}
+          setTheBet ={setTheBet}
+          betSetter={betSetter}
+        />
+      )}
       
     </div>
   );
