@@ -2,7 +2,7 @@ import React from 'react'
 import './App.scss'
 
 import {BrowserRouter as Router, Route } from 'react-router-dom'
-import NavBar from './components/navbar/NavBar'
+import NavBar from './components/NavBar/NavBar'
 import Landing from './components/Landing/Landing'
 import Blackjack from './components/Blackjack/Blackjack'
 import SlotMachine from './components/SlotMachine/SlotMachine'
