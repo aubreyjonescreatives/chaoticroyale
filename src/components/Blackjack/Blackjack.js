@@ -5,7 +5,7 @@ import "./Blackjack.scss";
 // import axios from "axios";
 import CardArea from "./CardArea/CardArea";
 import ActionArea from "./ActionArea/ActionArea";
-import InfoArea from "./InfoArea/InfoArea";
+import BetArea from './BetArea/BetArea';
 
 const Blackjack = (props) => {
   const [gameState, setGameState] = useState("pregame");
@@ -17,6 +17,7 @@ const Blackjack = (props) => {
   const [userScore, setUserScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
   const [theBet, setTheBet] = useState(10);
+  const [showDealerScore, setShowDealerScore] = useState(false);
 
   const newHand = () => {
     setUserValue([]);
@@ -91,7 +92,22 @@ const Blackjack = (props) => {
   useEffect( () => {
     const dealerNeedCardCheck = () => {
       if (gameState === "dealerPhase") {
+
+        // flip face down card 
+        if (dealerCards[0].image.includes('CardFix1.svg')) {
+          console.log('flipping card')
+          setDealerCards(dealerCards.map(card => {
+            let curCard = card
+            if (card.image.includes('CardFix1.svg')) {
+              curCard.image = `cards/${curCard.name}.svg`
+            }
+            return curCard
+          }))
+        }
+
         console.log("Dealer phase entered. Checking score.");
+        setShowDealerScore(true)
+
         if (dealerScore < userScore) {
           console.log("Dealer score is lower than user. Drawing card.");
           handleDealerAI();
@@ -147,6 +163,7 @@ const Blackjack = (props) => {
   //Also console logs the state whenever the gameState changes.
   useEffect(() => {
     console.log("GameState is now: ", gameState);
+
     const shuffleCards = async () => {
       console.log("Game starting. Now shuffling cards.");
       setGameState("shufflingCards")
@@ -228,11 +245,11 @@ const Blackjack = (props) => {
   useEffect(()=>{
 
     const autoValidate = async () => {
-      if(theBet > 500) {
+      if(theBet > 20000) {
         await sleep(50)
-        setTheBet(500)
+        setTheBet(20000)
       }
-      if(theBet == 0) {
+      if(theBet === 0) {
         await sleep(50)
         setTheBet(10)
       }
@@ -247,6 +264,7 @@ const Blackjack = (props) => {
   const playAgain = () => {
     newHand()
     handleGameState("betTime")
+    setShowDealerScore(false)
   }
 
   //This useEffect governs a 6 Card Charlie Win
@@ -260,31 +278,47 @@ const Blackjack = (props) => {
     }
   }, [userValue, userScore]);
 
+  const getDealerValue = () => {
+    if (!showDealerScore && dealerCards[0] !== undefined) {
+      console.log(`${dealerScore} - ${dealerCards[0].value}`)
+      let subtractVal = dealerCards[0].value !== '1or11' ? dealerCards[0].value : 11
+      return dealerScore - subtractVal
+    } else {
+      return dealerScore
+    }
+  }
+
   return (
     <div className="Blackjack">
       <div className="CardArea">
-      <CardArea theCards={dealerCards} name="Dealer" />
-      <CardArea theCards={userCards} name="Player" />
+        <CardArea theCards={dealerCards} name="Dealer" score={ getDealerValue() } />
+        <CardArea theCards={userCards} name="Player" score={userScore} />
       </div>
-      <ActionArea
-        gameState={gameState}
-        changeGamePhase={changeGamePhase}
-        addCard={getCard}
-        deck={deck}
-        theBet={theBet}
-        dealCard={dealCard}
-        freshDeal={freshDeal}
-        handleGameState={handleGameState}
-        betSetter={betSetter}
-        setTheBet ={setTheBet}
-        playAgain={playAgain}
-      />
-      <InfoArea
-        gameState={gameState}
-        handleGameState={handleGameState}
-        userScore={userScore}
-        dealerScore={dealerScore}
-      />
+      { gameState !== 'betTime' && (
+        <ActionArea
+          gameState={gameState}
+          changeGamePhase={changeGamePhase}
+          addCard={getCard}
+          deck={deck}
+          theBet={theBet}
+          setTheBet ={setTheBet}
+          dealCard={dealCard}
+          freshDeal={freshDeal}
+          handleGameState={handleGameState}
+          betSetter={betSetter}
+          playAgain={playAgain}
+          userScore={userScore}
+          dealerScore={dealerScore}
+        />
+      )}
+      
+      { gameState === 'betTime' && (
+        <BetArea 
+          theBet={theBet}
+          setTheBet ={setTheBet}
+          betSetter={betSetter}
+        />
+      )}
       
     </div>
   );

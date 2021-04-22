@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Confetti from "react-confetti";
+
+import { ScoreContext } from "../../ScoreContext";
 
 import './SlotMachine.scss'
 import Tumbler from './Tumbler/Tumbler'
 
 
 const SlotMachine = props => {
+    const score = useContext(ScoreContext)
+
     // Random numbers for tumblers, win state true/false, and the winning value
     const [randomNumbers, setRandomNumbers] = useState([1,1,19,20,21])
     const [winState, setWinState] = useState(null)
@@ -18,6 +22,8 @@ const SlotMachine = props => {
     const [bet, setBet] = useState(10)
     
     const generateNumbers = () => {
+        setBet(10)
+
         setActive(true)
         // Reset the win value to 0 and win state to false
         setWinValue(0)
@@ -154,13 +160,17 @@ const SlotMachine = props => {
 
                 <p className="slot-bet">${bet}</p> 
 
-                <button className="add" onClick={() => {
-                    setBet(bet + 10)
-                }}>+</button>
+                <button 
+                    className="add" 
+                    disabled={bet > score.get - 10 ? true : false}
+                    onClick={() => {
+                        setBet(bet + 10)
+                    }}
+                >+</button>
             </div>         
 
             <div className="row slot-actions">
-                <button className="slot-btn" onClick={ generateNumbers } disabled={active ? true : false} >Pull</button>
+                <button className="slot-btn" onClick={ generateNumbers } disabled={active || score.get < 10 ? true : false} >Pull</button>
             </div>            
         </div>      
 
