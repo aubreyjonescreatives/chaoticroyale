@@ -7,7 +7,7 @@ import Tumbler from './Tumbler/Tumbler'
 
 const SlotMachine = props => {
     // Random numbers for tumblers, win state true/false, and the winning value
-    const [randomNumbers, setRandomNumbers] = useState([9,1,19,20,21])
+    const [randomNumbers, setRandomNumbers] = useState([1,1,19,20,21])
     const [winState, setWinState] = useState(null)
     const [winValue, setWinValue] = useState(0)
 
@@ -82,6 +82,8 @@ const SlotMachine = props => {
 
         }
 
+        console.log(between)
+
         if ( between[0] && between[1] && !between[2] && !between[3] && !between[4] ) return { win: true, count:2 }
 
         if ( between[0] && between[1] && between[2] &&  !between[3] && !between[4]) return { win: true, count: 3 }
@@ -102,8 +104,8 @@ const SlotMachine = props => {
 
     
     useEffect(()=>{
+        console.log(winState?.win)
  
-
         // If we won, set the win value to the tumbler tier times the number of tumblers plus the bet amount
         if (winState?.win) setWinValue(()=> {
             return winState.tumblers * winState.count + bet
