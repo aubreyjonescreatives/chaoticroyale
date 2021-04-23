@@ -129,6 +129,8 @@ const SlotMachine = props => {
 
     return (
         <div className="container slot-machine">
+            <SlotPayouts />
+            
             {
                 winState?.win ? 
                 <Confetti 
@@ -175,9 +177,8 @@ const SlotMachine = props => {
                 <button className="slot-btn" onClick={ generateNumbers } disabled={active || score.get < 10 ? true : false} >Pull</button>
             </div>    
 
-            <div className="row">
-                <SlotPayouts />
-            </div>
+            
+            
         </div>      
 
     )
