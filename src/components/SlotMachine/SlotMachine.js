@@ -5,6 +5,7 @@ import { ScoreContext } from "../../ScoreContext";
 
 import './SlotMachine.scss'
 import Tumbler from './Tumbler/Tumbler'
+import SlotPayouts from './SlotPayouts/SlotPayouts'
 
 
 const SlotMachine = props => {
@@ -172,7 +173,11 @@ const SlotMachine = props => {
 
             <div className="row slot-actions">
                 <button className="slot-btn" onClick={ generateNumbers } disabled={active || score.get < 10 ? true : false} >Pull</button>
-            </div>            
+            </div>    
+
+            <div className="row">
+                <SlotPayouts />
+            </div>
         </div>      
 
     )
