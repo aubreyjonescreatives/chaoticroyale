@@ -19,7 +19,6 @@ const Blackjack = (props) => {
   const [theBet, setTheBet] = useState(10);
   const [showDealerScore, setShowDealerScore] = useState(false);
   const [shownDealerScore, setShownDealerScore] = useState(0);
-  
 
   const newHand = () => {
     setUserValue([]);
@@ -57,6 +56,7 @@ const Blackjack = (props) => {
     await sleep(300);
     dealCard("house", "up", dealerCards);
     await sleep(300);
+    setGameState("dealingDone");
   };
 
   //This useEffect governs a user bust, or a score over 21
@@ -71,12 +71,16 @@ const Blackjack = (props) => {
 
   //Takes a card from the deck and deals to Dealer
   const handleDealerCard = useCallback(() => {
-    console.log("Handle dealer card called, giving dealer a card.");
-    let newCard = getCard("up", deck);
-    setDealerCards((dealerCards) => [...dealerCards, newCard]);
-    setDealerValue((dealerValue) => [...dealerValue, newCard.value]);
-    setGameState("dealerPhase");
- 
+    const doTheCard = async () => {
+      console.log("Handle dealer card called, giving dealer a card.");
+      let newCard = getCard("up", deck);
+      await sleep(650)
+      setDealerCards((dealerCards) => [...dealerCards, newCard]);
+      setDealerValue((dealerValue) => [...dealerValue, newCard.value]);
+      await sleep(350).then(setGameState("dealerPhase"))
+      
+    };
+    doTheCard();
   }, [deck]);
 
   //When called
@@ -91,11 +95,10 @@ const Blackjack = (props) => {
 
   //Governs if dealer should be dealt a card
   useEffect(() => {
-
     const dealerNeedCardCheck = () => {
       if (gameState === "dealerPhase") {
         console.log("Dealer phase entered. Checking score.");
-        
+
         if (dealerScore < userScore) {
           console.log("Dealer score is lower than user. Drawing card.");
           handleDealerCard();
@@ -120,10 +123,9 @@ const Blackjack = (props) => {
         }
       }
     };
-    if(gameState === "dealerPhase") {
+    if (gameState === "dealerPhase") {
       dealerNeedCardCheck();
     }
-    
   }, [dealerScore, userScore, gameState, handleDealerCard]);
 
   //governs card flipping at the end
@@ -162,33 +164,37 @@ const Blackjack = (props) => {
   //If they are a 9, 10, or 11 in their initial phase, they can double down.
   useEffect(() => {
     const userPhaseCheck = async () => {
-      if (userScore < 21 && userCards.length === 2) {
-        console.log(`Your score is ${userScore} after initial deal.`);
-        await sleep(650);
-        setGameState("userPhase");
-      }
-      if (
-        (userScore === 9 ||
-          userScore === 10 ||
-          userScore === 11 ||
-          userScore === 12 ||
-          userScore === 13) &&
-        userCards.length === 2
-      ) {
+      if (userScore === 21 && userCards.length === 2) {
+        console.log("natural win.");
+        setGameState("winRoundNatural");
+        return;
+      } else if (userScore >= 9 && userScore <= 13 && userCards.length === 2) {
+        console.log(`Double down chance detected. User score is ${userScore}`);
         setGameState("doubleDown");
-      }
-      if (userScore === 21 && userCards.length > 2) {
+      } else if (userScore === 21 && userCards.length > 2) {
         console.log(
           "User has 21 with more than 2 cards. Auto-stop, dealer's turn."
         );
-        await sleep(350);
-        setGameState("dealerPhase");
-        await sleep(350);
+        setGameState("nonNatural21");
       }
     };
     userPhaseCheck();
   }, [userScore, userCards]);
 
+  useEffect(() => {
+    const setUserPhase = async () => {
+      if (userScore >= 9 && userScore <= 13) {
+        if (userCards.length === 2) {
+          setGameState("doubleDown");
+        }
+      } else {
+        setGameState("userPhase");
+      }
+    };
+    if (gameState === "dealingDone" && dealerScore !== 21) {
+      setUserPhase();
+    }
+  }, [userCards, userScore, gameState]);
 
   const handleGameState = (state) => {
     setGameState(state);
@@ -234,8 +240,8 @@ const Blackjack = (props) => {
   //This useEffect governs a blackjack/natural 21 win
   useEffect(() => {
     const youWinNatural = async () => {
-      await sleep(450);
       setGameState("winRoundNatural");
+      await sleep(450);
     };
     if (userScore === 21 && userValue.length === 2) {
       console.log("Natural 21 detected!");
@@ -245,24 +251,22 @@ const Blackjack = (props) => {
 
   //Takes a card from the deck and deals to player for double down
   const handleDoubleDownCard = useCallback(() => {
-    
     const giveDoubleDownCard = async () => {
       let newCard = getCard("up", deck);
       setUserCards((userCards) => [...userCards, newCard]);
       setUserValue((userValue) => [...userValue, newCard.value]);
       console.log("Double down card dealt.");
     };
-    if (gameState === "hasDoubledDown"){
+    if (gameState === "hasDoubledDown") {
       giveDoubleDownCard();
-      if(userScore <= 21) {
+      if (userScore <= 21) {
         setGameState("endDoubleDown");
-      } else{
-        setGameState("bust")
+      } else {
+        setGameState("bust");
       }
       //setGameState("dealerPhase");
     }
-    
-  }, [gameState, userScore]);
+  }, [gameState, userScore, deck]);
 
   //Double down: change bet to bet x2, deal one card, pause, change to dealerPhase
   useEffect(() => {
@@ -279,7 +283,6 @@ const Blackjack = (props) => {
       // } else{
       //   setGameState("bust")
       // }
-      
     }
   }, [gameState, theBet, handleDoubleDownCard]);
 
@@ -352,7 +355,7 @@ const Blackjack = (props) => {
       setGameState("win6Card");
       return;
     };
-    if (userValue.length === 6) {
+    if (userValue.length === 6 && userScore <= 21) {
       console.log("6 Card Charlie!");
       youWin6();
     }

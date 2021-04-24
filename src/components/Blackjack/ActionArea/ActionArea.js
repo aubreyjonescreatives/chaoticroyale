@@ -1,4 +1,5 @@
 import "./ActionArea.scss";
+import { Spinner } from "react-bootstrap";
 
 const ActionArea = (props) => {
   return (
@@ -44,7 +45,8 @@ const ActionArea = (props) => {
         {props.gameState === "endDoubleDown" ? (
           <div className="endDoubleDown">
             <h3>
-              Card drawn. Player score is now {props.userScore}. Bet is {props.theBet}.
+              Card drawn. Player score is now {props.userScore}. Bet is{" "}
+              {props.theBet}.
             </h3>
             <button
               onClick={() => props.changeGamePhase("dealerPhase")}
@@ -52,7 +54,25 @@ const ActionArea = (props) => {
             >
               Continue
             </button>
-         
+          </div>
+        ) : null}
+        {props.gameState === "nonNatural21" ? (
+          <div className="endDoubleDown">
+            <h3>Your cards add to {props.userScore}. Dealer's turn.</h3>
+            <button
+              onClick={() => props.changeGamePhase("dealerPhase")}
+              className="actionBtn"
+            >
+              Continue
+            </button>
+          </div>
+        ) : null}
+        {props.gameState === "dealerPhase" ? (
+          <div className="dealerPhase">
+            <h3>Dealer's turn. Please wait...</h3>
+            <Spinner animation="border" role="status" variant="success">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
           </div>
         ) : null}
         {props.gameState === "win6Card" ? (
