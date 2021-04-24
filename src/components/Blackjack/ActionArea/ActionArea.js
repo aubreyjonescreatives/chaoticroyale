@@ -18,6 +18,29 @@ const ActionArea = (props) => {
             </p>
           </div>
         ) : null}
+        {props.gameState === "doubleDown" ? (
+          <div>
+            <h3>
+              Player score is {props.userScore}. Would you like to double down?
+            </h3>
+            <p className="doubleDownInfo">
+              Doubling down will double your bet, and deal you one more card. It
+              will then be the dealer's turn.
+            </p>
+            <button
+              onClick={() => props.changeGamePhase("userPhase")}
+              className="actionBtn"
+            >
+              No
+            </button>
+            <button
+              onClick={() => props.changeGamePhase("hasDoubledDown")}
+              className="actionBtn"
+            >
+              Yes
+            </button>
+          </div>
+        ) : null}
         {props.gameState === "win6Card" ? (
           <div>
             <h3>Six Card Charlie! You win!</h3>
@@ -63,22 +86,34 @@ const ActionArea = (props) => {
       {props.gameState === "shufflingCards" ? (
         <button className="actionBtn">Shuffling cards...</button>
       ) : null}
-            
-      {props.gameState === "betTime" ? 
-        <div className="betArea">
-        <label>Set your Bet
-          <div className="betBox1">
-          <input type="number" value={props.theBet} nChange={e => props.setTheBet(e.target.value)}/>
-          </div>
-        </label>
-        <p>Min: $10  Max: $500</p>
-        <div className="betButtons">
-        <button className="actionBtn" onClick={props.betSetter}>CONFIRM</button>
-        <button className="actionBtn"onClick={() => props.changeGamePhase("pregame")}>CANCEL</button>
-      </div>
 
-      </div>: null}
-    
+      {props.gameState === "betTime" ? (
+        <div className="betArea">
+          <label>
+            Set your Bet
+            <div className="betBox1">
+              <input
+                type="number"
+                value={props.theBet}
+                nChange={(e) => props.setTheBet(e.target.value)}
+              />
+            </div>
+          </label>
+          <p>Min: $10 Max: $500</p>
+          <div className="betButtons">
+            <button className="actionBtn" onClick={props.betSetter}>
+              CONFIRM
+            </button>
+            <button
+              className="actionBtn"
+              onClick={() => props.changeGamePhase("pregame")}
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       {props.gameState === "addOne" ? (
         <button onClick={props.freshDeal} className="actionBtn">
           Deal
@@ -90,10 +125,7 @@ const ActionArea = (props) => {
       props.gameState === "winRoundNatural" ||
       props.gameState === "win6Card" ||
       props.gameState === "bust" ? (
-        <button
-          onClick={props.playAgain}
-          className="actionBtn"
-        >
+        <button onClick={props.playAgain} className="actionBtn">
           Play Again?
         </button>
       ) : null}
