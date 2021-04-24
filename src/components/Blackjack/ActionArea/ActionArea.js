@@ -41,6 +41,20 @@ const ActionArea = (props) => {
             </button>
           </div>
         ) : null}
+        {props.gameState === "endDoubleDown" ? (
+          <div className="endDoubleDown">
+            <h3>
+              Card drawn. Player score is now {props.userScore}. Bet is {props.theBet}.
+            </h3>
+            <button
+              onClick={() => props.changeGamePhase("dealerPhase")}
+              className="actionBtn"
+            >
+              Continue
+            </button>
+         
+          </div>
+        ) : null}
         {props.gameState === "win6Card" ? (
           <div>
             <h3>Six Card Charlie! You win!</h3>

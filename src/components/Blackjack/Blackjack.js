@@ -150,7 +150,8 @@ const Blackjack = (props) => {
       gameState === "win6Card" ||
       gameState === "endRoundWin" ||
       gameState === "endRoundLose" ||
-      gameState === "endRoundDraw"
+      gameState === "endRoundDraw" ||
+      gameState === "bust"
     ) {
       flipEmGood();
     }
@@ -163,7 +164,7 @@ const Blackjack = (props) => {
     const userPhaseCheck = async () => {
       if (userScore < 21 && userCards.length === 2) {
         console.log(`Your score is ${userScore} after initial deal.`);
-        await sleep(350);
+        await sleep(650);
         setGameState("userPhase");
       }
       if (
@@ -244,18 +245,17 @@ const Blackjack = (props) => {
 
   //Takes a card from the deck and deals to player for double down
   const handleDoubleDownCard = useCallback(() => {
-    console.log("Double down card dealt.");
+    
     const giveDoubleDownCard = async () => {
       let newCard = getCard("up", deck);
       setUserCards((userCards) => [...userCards, newCard]);
       setUserValue((userValue) => [...userValue, newCard.value]);
-      console.log("handleDoubleDownCard down starts dealerPhase.");
-      
+      console.log("Double down card dealt.");
     };
     if (gameState === "hasDoubledDown"){
       giveDoubleDownCard();
       if(userScore <= 21) {
-        setGameState("dealerPhase");
+        setGameState("endDoubleDown");
       } else{
         setGameState("bust")
       }
@@ -367,7 +367,8 @@ const Blackjack = (props) => {
         gameState === "win6Card" ||
         gameState === "endRoundWin" ||
         gameState === "endRoundLose" ||
-        gameState === "endRoundDraw"
+        gameState === "endRoundDraw" ||
+        gameState === "bust"
       ) {
         await sleep(300);
         setShownDealerScore(dealerScore);

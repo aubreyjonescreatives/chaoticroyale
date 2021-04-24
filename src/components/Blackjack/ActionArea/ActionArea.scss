@@ -4,7 +4,7 @@
   padding: 10px;
   font-size: 20px;
   width: 280px;
-  height: 230px;
+  height: 280px;
   //max-height: 250px;
   display: flex;
   flex-direction: column;
@@ -27,6 +27,15 @@
   }
 .doubleDownInfo{
   font-size: 10px;
+ 
+} 
+.endDoubleDown{
+  button{
+    margin-top: 10px;
+  }
+}
+button{
+  margin-top: 10px;
 }
   .hitStand{
     display: flex !important;
