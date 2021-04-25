@@ -39,14 +39,6 @@ const ActionArea = (props) => {
             <p>You lost the bet. </p>
           </div>
         ) : null}
-        {/* {props.gameState === "winRoundNatural" ? (
-          <div>
-            <h3>BLACKJACK! You win!</h3>
-            <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
-            </p>
-          </div>
-        ) : null} */}
         {props.gameState === "doubleDown" ? (
           <div>
             <h3>
@@ -103,38 +95,6 @@ const ActionArea = (props) => {
             </Spinner>
           </div>
         ) : null}
-        {/* {props.gameState === "win6Card" ? (
-          <div>
-            <h3>Six Card Charlie! You win!</h3>
-          </div>
-        ) : null} */}
-        {/* {props.gameState === "endRoundWin" ? (
-          <div>
-            <h3>You win!</h3>
-            <p>
-              Your score: {props.userScore} Dealer score:{" "}
-              {props.dealerScore < 21
-                ? props.dealerScore
-                : `BUST! ${props.dealerScore}`}
-            </p>
-          </div>
-        ) : null}
-        {props.gameState === "endRoundLose" ? (
-          <div>
-            <h3>You lose the bet!</h3>
-            <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
-            </p>
-          </div>
-        ) : null}
-        {props.gameState === "endRoundDraw" ? (
-          <div>
-            <h3>It's a draw. Bet money returned.</h3>
-            <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
-            </p>
-          </div>
-        ) : null} */}
       </div>
 
       {props.gameState === "pregame" ? (

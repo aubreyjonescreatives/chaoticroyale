@@ -423,9 +423,6 @@ const Blackjack = (props) => {
 
   return (
     <div className="Blackjack">
-      <div>
-        <h3>Score: {score.get}</h3>
-      </div>
       <div className="CardArea">
         <CardArea
           theCards={dealerCards}
