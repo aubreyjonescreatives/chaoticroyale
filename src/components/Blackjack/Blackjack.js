@@ -39,6 +39,10 @@ const Blackjack = (props) => {
     setDeck(newDeck);
   };
 
+  useEffect(() => {
+    console.log("!!!!USER BALANCE: ", score.get)
+  }, [score.get])
+
   function dealCard(whoTo, faceState) {
     let newCard = getCard(faceState, deck);
     if (whoTo === "user") {
@@ -56,10 +60,9 @@ const Blackjack = (props) => {
     dealCard("house", "down", dealerCards);
     await sleep(300);
     dealCard("user", "up", userCards);
-    await sleep(300);
+    await sleep(100);
     dealCard("house", "up", dealerCards);
-    await sleep(300);
-    setGameState("dealingDone");
+    await sleep(500).then(setGameState("dealingDone"));
   };
 
   //This useEffect governs a user bust, or a score over 21
@@ -80,20 +83,10 @@ const Blackjack = (props) => {
       await sleep(650);
       setDealerCards((dealerCards) => [...dealerCards, newCard]);
       setDealerValue((dealerValue) => [...dealerValue, newCard.value]);
-      await sleep(350).then(setGameState("dealerPhase"));
+      await sleep(950).then(setGameState("dealerPhase"));
     };
     doTheCard();
   }, [deck]);
-
-  //When called
-  // const handleDealerAI = useCallback(() => {
-  //   const dealerAI = async () => {
-  //     await sleep(700);
-  //     handleDealerCard();
-  //     setGameState("dealerPhase");
-  //   };
-  //   dealerAI();
-  // }, [handleDealerCard]);
 
   //Governs if dealer should be dealt a card
   useEffect(() => {
@@ -155,7 +148,9 @@ const Blackjack = (props) => {
       gameState === "endRoundWin" ||
       gameState === "endRoundLose" ||
       gameState === "endRoundDraw" ||
-      gameState === "bust"
+      gameState === "bust" ||
+      gameState === "postRound" ||
+      gameState === "dealerBust"
     ) {
       flipEmGood();
     }
@@ -193,7 +188,7 @@ const Blackjack = (props) => {
         setGameState("userPhase");
       }
     };
-    if (gameState === "dealingDone" && dealerScore !== 21) {
+    if (gameState === "dealingDone" && userCards.length === 2) {
       setUserPhase();
     }
   }, [userCards, userScore, gameState, dealerScore]);
@@ -266,11 +261,10 @@ const Blackjack = (props) => {
       } else {
         setGameState("bust");
       }
-      //setGameState("dealerPhase");
     }
   }, [gameState, userScore, deck]);
 
-  //Double down: change bet to bet x2, deal one card, pause, change to dealerPhase
+  //Double down: change bet to bet x2, deal one card
   useEffect(() => {
     const handleDoubleDown = async () => {
       console.log("Player will double down.");
@@ -280,11 +274,6 @@ const Blackjack = (props) => {
     };
     if (gameState === "hasDoubledDown") {
       handleDoubleDown();
-      // if(userScore <= 21) {
-      //   setGameState("dealerPhase");
-      // } else{
-      //   setGameState("bust")
-      // }
     }
   }, [gameState, theBet, handleDoubleDownCard]);
 
@@ -299,14 +288,14 @@ const Blackjack = (props) => {
     const itsADraw = () => {
       setGameState("endRoundDraw");
     };
-    const dealerBust = () => {
+    const dealerBust = async () => {
       console.log("Dealer has busted.");
       setGameState("dealerBust");
     };
     const ender = async () => {
       if (dealerScore > 21 && gameState !== "postRound") {
         dealerBust();
-        youWin();
+        // youWin();
       }
       if (userScore > dealerScore && gameState === "dealerEnds") {
         console.log("Regular win!");
@@ -333,6 +322,10 @@ const Blackjack = (props) => {
         setTheBet(2000);
       }
       if (theBet === 0) {
+        await sleep(50);
+        setTheBet(10);
+      }
+      if (theBet < 0) {
         await sleep(50);
         setTheBet(10);
       }
@@ -374,6 +367,7 @@ const Blackjack = (props) => {
         gameState === "endRoundLose" ||
         gameState === "endRoundDraw" ||
         gameState === "bust" ||
+        gameState === "dealerBust" ||
         gameState === "postRound" 
       ) {
         setShownDealerScore(dealerScore);
@@ -396,23 +390,42 @@ const Blackjack = (props) => {
   //Depending on win, lose, or draw, adds or subtracts from score
   useEffect(() => {
     const updateScore = async () => {
-      await sleep(100).then(() => {
-        if (
-          gameState === "winRoundNatural" ||
-          gameState === "win6Card" ||
-          gameState === "endRoundWin"
+      // await sleep(1000).then(() => {
+        if (gameState !== "postRound") {
+          if (
+          gameState === "winRoundNatural" 
         ) {
-          score.set(score.get + theBet);
+          console.log("Update score says: winRoundNatural")
+          score.set(score.get + theBet)
           setGameState("postRound");
         }
-        if (gameState === "endRoundLose" || gameState === "bust") {
-          score.set(score.get - theBet);
+        if (gameState === "endRoundLose") {
+          console.log("Update score says: endRoundLose")
+          score.set(score.get - theBet)
           setGameState("postRound");
         }
         if (gameState === "endRoundDraw") {
+          console.log("Update score says: It's a draw.")
           setGameState("postRound");
         }
-      });
+        if (gameState === "dealerBust") {
+          console.log("Update score says: Dealer Busted.")
+          score.set(score.get + theBet)
+          setGameState("postRound");
+        }
+        if (gameState === "win6Card") {
+          console.log("Update score says: Six card Charlie.")
+          score.set(score.get + theBet)
+          setGameState("postRound");
+        }
+        if (gameState === "bust") {
+          console.log("Update score says: User Bust.")
+          score.set(score.get - theBet)
+          setGameState("postRound");
+        }
+        }
+        
+      // });
     };
     updateScore();
   }, [score, theBet, gameState]);

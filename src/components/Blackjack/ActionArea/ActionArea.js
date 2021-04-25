@@ -14,7 +14,7 @@ const ActionArea = (props) => {
       setEndMessage(`Six Card Charlie! $${props.theBet} added.`)
     }
     if(props.gameState === "win6Card") {
-      setEndMessage("Six Card Charlie! You win!")
+      setEndMessage(`Six Card Charlie! You win! $${props.theBet} added.`)
     }
     if(props.gameState === "endRoundWin") {
       setEndMessage(`You win! $${props.theBet} added to balance.`)
@@ -28,6 +28,9 @@ const ActionArea = (props) => {
     if(props.gameState === "bust") {
       setEndMessage(`Bust! You lost the bet. Lost $${props.theBet}.`)
     }
+    if(props.gameState === "dealerBust") {
+      setEndMessage(`Dealer bust! You win $${props.theBet}.`)
+    }
   }, [props.gameState, props.theBet])
 
   return (
@@ -36,7 +39,10 @@ const ActionArea = (props) => {
         {props.gameState === "bust" ? (
           <div>
             <h3>Bust! </h3>
-            <p>You lost the bet. </p>
+            <h3>{endMessage}</h3>
+        <button onClick={props.playAgain} className="actionBtn">
+          Play Again?
+        </button>
           </div>
         ) : null}
         {props.gameState === "doubleDown" ? (
@@ -61,6 +67,22 @@ const ActionArea = (props) => {
               Yes
             </button>
           </div>
+        ) : null}
+        {props.gameState === "dealerBustEnd" && props.dealerScore > 21 ? (
+           <>
+           <h3>{endMessage}</h3>
+           <button onClick={props.playAgain} className="actionBtn">
+             Play Again?
+           </button>
+           </> 
+        ) : null}
+        {props.gameState === "userBustEnd" && props.dealerScore > 21 ? (
+           <>
+           <h3>{endMessage}</h3>
+           <button onClick={props.playAgain} className="actionBtn">
+             Play Again?
+           </button>
+           </> 
         ) : null}
         {props.gameState === "endDoubleDown" ? (
           <div className="endDoubleDown">
