@@ -1,6 +1,7 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import cards, { shuffle, getCard, sleep, reducer } from "./cards.js";
 import "./Blackjack.scss";
+import { ScoreContext } from "../../ScoreContext";
 
 // import axios from "axios";
 import CardArea from "./CardArea/CardArea";
@@ -9,6 +10,7 @@ import BetArea from "./BetArea/BetArea";
 
 const Blackjack = (props) => {
   const [gameState, setGameState] = useState("pregame");
+  const score = useContext(ScoreContext);
   const [userCards, setUserCards] = useState([]);
   const [dealerCards, setDealerCards] = useState([]);
   const [deck, setDeck] = useState([]);
@@ -19,6 +21,7 @@ const Blackjack = (props) => {
   const [theBet, setTheBet] = useState(10);
   const [showDealerScore, setShowDealerScore] = useState(false);
   const [shownDealerScore, setShownDealerScore] = useState(0);
+  // const [scoreUpdating, setScoreUpdating] = useState(false)
 
   const newHand = () => {
     setUserValue([]);
@@ -74,11 +77,10 @@ const Blackjack = (props) => {
     const doTheCard = async () => {
       console.log("Handle dealer card called, giving dealer a card.");
       let newCard = getCard("up", deck);
-      await sleep(650)
+      await sleep(650);
       setDealerCards((dealerCards) => [...dealerCards, newCard]);
       setDealerValue((dealerValue) => [...dealerValue, newCard.value]);
-      await sleep(350).then(setGameState("dealerPhase"))
-      
+      await sleep(350).then(setGameState("dealerPhase"));
     };
     doTheCard();
   }, [deck]);
@@ -194,7 +196,7 @@ const Blackjack = (props) => {
     if (gameState === "dealingDone" && dealerScore !== 21) {
       setUserPhase();
     }
-  }, [userCards, userScore, gameState]);
+  }, [userCards, userScore, gameState, dealerScore]);
 
   const handleGameState = (state) => {
     setGameState(state);
@@ -302,7 +304,7 @@ const Blackjack = (props) => {
       setGameState("dealerBust");
     };
     const ender = async () => {
-      if (dealerScore > 21) {
+      if (dealerScore > 21 && gameState !== "postRound") {
         dealerBust();
         youWin();
       }
@@ -371,9 +373,9 @@ const Blackjack = (props) => {
         gameState === "endRoundWin" ||
         gameState === "endRoundLose" ||
         gameState === "endRoundDraw" ||
-        gameState === "bust"
+        gameState === "bust" ||
+        gameState === "postRound" 
       ) {
-        await sleep(300);
         setShownDealerScore(dealerScore);
       } else {
         if (dealerScore !== 0) {
@@ -389,8 +391,41 @@ const Blackjack = (props) => {
     getDealerValue();
   }, [dealerCards, dealerScore, showDealerScore, gameState]);
 
+
+  //Here, a use effect that has score and gameState as dependencies.
+  //Depending on win, lose, or draw, adds or subtracts from score
+  useEffect(() => {
+    const updateScore = async () => {
+      await sleep(100).then(() => {
+        if (
+          gameState === "winRoundNatural" ||
+          gameState === "win6Card" ||
+          gameState === "endRoundWin"
+        ) {
+          score.set(score.get + theBet);
+          setGameState("postRound");
+        }
+        if (gameState === "endRoundLose" || gameState === "bust") {
+          score.set(score.get - theBet);
+          setGameState("postRound");
+        }
+        if (gameState === "endRoundDraw") {
+          setGameState("postRound");
+        }
+      });
+    };
+    updateScore();
+  }, [score, theBet, gameState]);
+
+  useEffect(() => {
+    console.log("The bet is now: ", theBet);
+  }, [theBet]);
+
   return (
     <div className="Blackjack">
+      <div>
+        <h3>Score: {score.get}</h3>
+      </div>
       <div className="CardArea">
         <CardArea
           theCards={dealerCards}
