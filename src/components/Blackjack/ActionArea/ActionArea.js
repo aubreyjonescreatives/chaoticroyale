@@ -1,22 +1,48 @@
 import "./ActionArea.scss";
+import { useState, useEffect } from "react"
 import { Spinner } from "react-bootstrap";
 
+
 const ActionArea = (props) => {
+  const [endMessage, setEndMessage] = useState("")
+
+  useEffect(() => {
+    if(props.gameState === "winRoundNatural") {
+      setEndMessage(`BLACKJACK! You win! $${props.theBet} added.`)
+    }
+    if(props.gameState === "win6") {
+      setEndMessage(`Six Card Charlie! $${props.theBet} added.`)
+    }
+    if(props.gameState === "win6Card") {
+      setEndMessage(`Six Card Charlie! You win! $${props.theBet} added.`)
+    }
+    if(props.gameState === "endRoundWin") {
+      setEndMessage(`You win! $${props.theBet} added to balance.`)
+    }
+    if(props.gameState === "endRoundLose") {
+      setEndMessage(`You lose the bet! Lost $${props.theBet} from balance.`)
+    }
+    if(props.gameState === "endRoundDraw") {
+      setEndMessage("It was a draw. All bet money returned.")
+    }
+    if(props.gameState === "bust") {
+      setEndMessage(`Bust! You lost the bet. Lost $${props.theBet}.`)
+    }
+    if(props.gameState === "dealerBust") {
+      setEndMessage(`Dealer bust! You win $${props.theBet}.`)
+    }
+  }, [props.gameState, props.theBet])
+
   return (
     <div className="ActionArea">
       <div className="results">
         {props.gameState === "bust" ? (
           <div>
             <h3>Bust! </h3>
-            <p>You lost the bet. </p>
-          </div>
-        ) : null}
-        {props.gameState === "winRoundNatural" ? (
-          <div>
-            <h3>BLACKJACK! You win!</h3>
-            <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
-            </p>
+            <h3>{endMessage}</h3>
+        <button onClick={props.playAgain} className="actionBtn">
+          Play Again?
+        </button>
           </div>
         ) : null}
         {props.gameState === "doubleDown" ? (
@@ -41,6 +67,22 @@ const ActionArea = (props) => {
               Yes
             </button>
           </div>
+        ) : null}
+        {props.gameState === "dealerBustEnd" && props.dealerScore > 21 ? (
+           <>
+           <h3>{endMessage}</h3>
+           <button onClick={props.playAgain} className="actionBtn">
+             Play Again?
+           </button>
+           </> 
+        ) : null}
+        {props.gameState === "userBustEnd" && props.dealerScore > 21 ? (
+           <>
+           <h3>{endMessage}</h3>
+           <button onClick={props.playAgain} className="actionBtn">
+             Play Again?
+           </button>
+           </> 
         ) : null}
         {props.gameState === "endDoubleDown" ? (
           <div className="endDoubleDown">
@@ -73,38 +115,6 @@ const ActionArea = (props) => {
             <Spinner animation="border" role="status" variant="success">
               <span className="sr-only">Loading...</span>
             </Spinner>
-          </div>
-        ) : null}
-        {props.gameState === "win6Card" ? (
-          <div>
-            <h3>Six Card Charlie! You win!</h3>
-          </div>
-        ) : null}
-        {props.gameState === "endRoundWin" ? (
-          <div>
-            <h3>You win!</h3>
-            <p>
-              Your score: {props.userScore} Dealer score:{" "}
-              {props.dealerScore < 21
-                ? props.dealerScore
-                : `BUST! ${props.dealerScore}`}
-            </p>
-          </div>
-        ) : null}
-        {props.gameState === "endRoundLose" ? (
-          <div>
-            <h3>You lose the bet!</h3>
-            <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
-            </p>
-          </div>
-        ) : null}
-        {props.gameState === "endRoundDraw" ? (
-          <div>
-            <h3>It's a draw. Bet money returned.</h3>
-            <p>
-              Your score: {props.userScore} Dealer score: {props.dealerScore}
-            </p>
           </div>
         ) : null}
       </div>
@@ -153,15 +163,13 @@ const ActionArea = (props) => {
           Deal
         </button>
       ) : null}
-      {props.gameState === "endRoundWin" ||
-      props.gameState === "endRoundLose" ||
-      props.gameState === "endRoundDraw" ||
-      props.gameState === "winRoundNatural" ||
-      props.gameState === "win6Card" ||
-      props.gameState === "bust" ? (
+      {props.gameState === "postRound"? (
+        <>
+        <h3>{endMessage}</h3>
         <button onClick={props.playAgain} className="actionBtn">
           Play Again?
         </button>
+        </>
       ) : null}
       {props.gameState === "userPhase" ? (
         <div className="hitStand">
