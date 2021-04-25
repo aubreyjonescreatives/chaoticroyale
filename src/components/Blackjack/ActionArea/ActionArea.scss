@@ -4,7 +4,7 @@
   padding: 10px;
   font-size: 20px;
   width: 280px;
-  height: 230px;
+  height: 280px;
   //max-height: 250px;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,24 @@
       font-weight: bold;
     }
   }
-
+.doubleDownInfo{
+  font-size: 10px;
+ 
+} 
+.endDoubleDown{
+  button{
+    margin-top: 10px;
+  }
+}
+button{
+  margin-top: 10px;
+}
+.dealerPhase{
+  text-align: center;
+  span{
+    align-items: center;
+  }
+}
   .hitStand{
     display: flex !important;
     flex-direction: column;
@@ -44,6 +61,7 @@
     //margin-top: 5px;
     width: 100%;
     font-size: 23px;
+    transition: 300ms ease-in-out;
 
   }
   .betArea{

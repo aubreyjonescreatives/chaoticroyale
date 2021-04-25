@@ -1,4 +1,5 @@
 import "./ActionArea.scss";
+import { Spinner } from "react-bootstrap";
 
 const ActionArea = (props) => {
   return (
@@ -16,6 +17,62 @@ const ActionArea = (props) => {
             <p>
               Your score: {props.userScore} Dealer score: {props.dealerScore}
             </p>
+          </div>
+        ) : null}
+        {props.gameState === "doubleDown" ? (
+          <div>
+            <h3>
+              Player score is {props.userScore}. Would you like to double down?
+            </h3>
+            <p className="doubleDownInfo">
+              Doubling down will double your bet, and deal you one more card. It
+              will then be the dealer's turn.
+            </p>
+            <button
+              onClick={() => props.changeGamePhase("userPhase")}
+              className="actionBtn"
+            >
+              No
+            </button>
+            <button
+              onClick={() => props.changeGamePhase("hasDoubledDown")}
+              className="actionBtn"
+            >
+              Yes
+            </button>
+          </div>
+        ) : null}
+        {props.gameState === "endDoubleDown" ? (
+          <div className="endDoubleDown">
+            <h3>
+              Card drawn. Player score is now {props.userScore}. Bet is{" "}
+              {props.theBet}.
+            </h3>
+            <button
+              onClick={() => props.changeGamePhase("dealerPhase")}
+              className="actionBtn"
+            >
+              Continue
+            </button>
+          </div>
+        ) : null}
+        {props.gameState === "nonNatural21" ? (
+          <div className="endDoubleDown">
+            <h3>Your cards add to {props.userScore}. Dealer's turn.</h3>
+            <button
+              onClick={() => props.changeGamePhase("dealerPhase")}
+              className="actionBtn"
+            >
+              Continue
+            </button>
+          </div>
+        ) : null}
+        {props.gameState === "dealerPhase" ? (
+          <div className="dealerPhase">
+            <h3>Dealer's turn. Please wait...</h3>
+            <Spinner animation="border" role="status" variant="success">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
           </div>
         ) : null}
         {props.gameState === "win6Card" ? (
@@ -63,22 +120,34 @@ const ActionArea = (props) => {
       {props.gameState === "shufflingCards" ? (
         <button className="actionBtn">Shuffling cards...</button>
       ) : null}
-            
-      {props.gameState === "betTime" ? 
-        <div className="betArea">
-        <label>Set your Bet
-          <div className="betBox1">
-          <input type="number" value={props.theBet} nChange={e => props.setTheBet(e.target.value)}/>
-          </div>
-        </label>
-        <p>Min: $10  Max: $500</p>
-        <div className="betButtons">
-        <button className="actionBtn" onClick={props.betSetter}>CONFIRM</button>
-        <button className="actionBtn"onClick={() => props.changeGamePhase("pregame")}>CANCEL</button>
-      </div>
 
-      </div>: null}
-    
+      {props.gameState === "betTime" ? (
+        <div className="betArea">
+          <label>
+            Set your Bet
+            <div className="betBox1">
+              <input
+                type="number"
+                value={props.theBet}
+                nChange={(e) => props.setTheBet(e.target.value)}
+              />
+            </div>
+          </label>
+          <p>Min: $10 Max: $500</p>
+          <div className="betButtons">
+            <button className="actionBtn" onClick={props.betSetter}>
+              CONFIRM
+            </button>
+            <button
+              className="actionBtn"
+              onClick={() => props.changeGamePhase("pregame")}
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       {props.gameState === "addOne" ? (
         <button onClick={props.freshDeal} className="actionBtn">
           Deal
@@ -90,10 +159,7 @@ const ActionArea = (props) => {
       props.gameState === "winRoundNatural" ||
       props.gameState === "win6Card" ||
       props.gameState === "bust" ? (
-        <button
-          onClick={props.playAgain}
-          className="actionBtn"
-        >
+        <button onClick={props.playAgain} className="actionBtn">
           Play Again?
         </button>
       ) : null}
