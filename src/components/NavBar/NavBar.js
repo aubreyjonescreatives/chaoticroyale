@@ -1,19 +1,56 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './NavBar.scss'
 import { NavLink } from 'react-router-dom'
 
-import { ScoreContext } from "../../ScoreContext";
+import { ScoreContext } from "../../ScoreContext"
 
 import Cashout from '../Cashout/Cashout'
 
+const axios = require('axios');
+
 const NavBar = props => {
     const [showCashout, setShowCashout] = useState(false)
+    const [scoreList, setScoreList] = useState([])
+    const [highscore, setHighscore] = useState(null)
     const score = useContext(ScoreContext)
 
     const scoreFormat = (val) => val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
     const toggleCashout = () => {
         setShowCashout(!showCashout)
+    }
+
+    const baseURL = 'https://intense-reef-47527.herokuapp.com/chaotic'
+
+    useEffect(() => {
+        getScores()
+    }, [])
+    useEffect(() => {
+        console.log(scoreList)
+
+    }, [scoreList])
+
+    const getScores = () => {
+        axios.get(baseURL)
+          .then(function (response) {
+            // handle success
+            console.log(response)
+            let sortedArray = response.data.sort((a,b) => {
+                return b.score - a.score
+            })
+            setScoreList(sortedArray)
+            if (sortedArray.length > 0) {
+                setHighscore(sortedArray[0].score)
+            }
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error)
+          })
+          .then(function () {
+            // execute no matter what
+            
+          })
     }
     
     return (
@@ -32,7 +69,7 @@ const NavBar = props => {
                         </nav>
 
                         <div className="d-flex score-balance justify-self-end">
-                            <h3 className="high-score pr-lg-5 mr-lg-5">High Score: $150,000</h3>
+                            <h3 className="high-score pr-lg-5 mr-lg-5">High Score: {highscore !== null ? '$' + scoreFormat(highscore) : 'Loading...'}</h3>
                             <h3 className="balance">Balance: ${scoreFormat(score.get)}</h3>
                             <button className="cashoutBtn" onClick={toggleCashout}>Cash Out</button>
                         </div>

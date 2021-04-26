@@ -6,7 +6,7 @@ import { Spinner } from "react-bootstrap";
 
 import { ScoreContext } from "../../ScoreContext";
 
-const axios = require('axios');
+const axios = require('axios')
 
 
 const NavBar = props => {
