@@ -31,11 +31,17 @@
 
     h1 {
       font-size: 50px;
+      margin: 0;
+      font-weight: bolder;
     }
     h2 {
       margin: 15px 0;
       font-size: 18px;
       font-weight: normal;
+    }
+    h3 {
+      font-size: 30px;
+      margin-bottom: 10px;
     }
     p {
       font-size: 23px;
@@ -49,13 +55,23 @@
       font-size: 20px;
       margin: 10px;
     }
-    button.cashoutConfirm {
+    button.cashoutSubmit {
       background-color: green;
       color: white;
     }
-    button.cashoutContinue {
+    button.cashoutCancel {
       background-color: #3b3b3b;
       color: white;
+    }
+    input[type="text"].initialsInput {
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 50px;
+      width: 200px;
+      text-transform: uppercase;
+      text-align: center;
+      border: 1px solid rgb(199, 199, 199);
+      margin: 25px 0;
     }
   }
 }
