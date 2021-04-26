@@ -43,6 +43,12 @@
 
     .score-balance {
         margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        .high-score, .balance {
+            margin: 0;
+        }
 
         .high-score {
 
@@ -50,6 +56,16 @@
                 border-right: 1px solid #fff;
             }
             
+        }
+
+        .cashoutBtn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 17.5px;
+            background-color: green;
+            color: white;
+            margin-left: 20px;
         }
     }
 
