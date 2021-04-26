@@ -5,11 +5,13 @@ import { NavLink } from 'react-router-dom'
 import { ScoreContext } from "../../ScoreContext"
 
 import Cashout from '../Cashout/Cashout'
+import HighScoreArea from '../HighScoreArea/HighScoreArea'
 
 const axios = require('axios');
 
 const NavBar = props => {
     const [showCashout, setShowCashout] = useState(false)
+    const [showHighScores, setShowHighScores] = useState(false)
     const [scoreList, setScoreList] = useState([])
     const [highscore, setHighscore] = useState(null)
     const score = useContext(ScoreContext)
@@ -20,6 +22,11 @@ const NavBar = props => {
         setShowCashout(!showCashout)
     }
 
+    const toggleHighScoreArea = () => {
+        console.log('show high scores')
+        setShowHighScores(!showHighScores)
+    }
+
     const baseURL = 'https://intense-reef-47527.herokuapp.com/chaotic'
 
     useEffect(() => {
@@ -27,7 +34,6 @@ const NavBar = props => {
     }, [])
     useEffect(() => {
         console.log(scoreList)
-
     }, [scoreList])
 
     const getScores = () => {
@@ -46,10 +52,7 @@ const NavBar = props => {
           .catch(function (error) {
             // handle error
             console.log(error)
-          })
-          .then(function () {
-            // execute no matter what
-            
+            setHighscore('Error')
           })
     }
     
@@ -69,7 +72,7 @@ const NavBar = props => {
                         </nav>
 
                         <div className="d-flex score-balance justify-self-end">
-                            <h3 className="high-score pr-lg-5 mr-lg-5">High Score: {highscore !== null ? '$' + scoreFormat(highscore) : 'Loading...'}</h3>
+                            <h3 className="high-score pr-lg-5 mr-lg-5" onClick={toggleHighScoreArea}>High Score: {highscore !== null ? '$' + scoreFormat(highscore) : 'Loading...'}</h3>
                             <h3 className="balance">Balance: ${scoreFormat(score.get)}</h3>
                             <button className="cashoutBtn" onClick={toggleCashout}>Cash Out</button>
                         </div>
@@ -77,7 +80,10 @@ const NavBar = props => {
                 </div>
             </header>
             {showCashout && (
-                <Cashout toggleCashout={toggleCashout} />
+                <Cashout toggleCashout={toggleCashout} getScores={getScores} />
+            )}
+            {showHighScores && (
+                <HighScoreArea scores={scoreList} toggleScores={toggleHighScoreArea} />
             )}
         </React.Fragment>
     )

@@ -51,11 +51,14 @@
         }
 
         .high-score {
-
+            cursor: pointer;
+            
             @media screen and (min-width: 992px) {
                 border-right: 1px solid #fff;
             }
-            
+        }
+        .high-score:hover {
+            text-decoration: underline;
         }
 
         .cashoutBtn {
