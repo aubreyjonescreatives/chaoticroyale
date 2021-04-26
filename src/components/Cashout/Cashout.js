@@ -5,7 +5,6 @@ import './Cashout.scss'
 import { Spinner } from "react-bootstrap";
 
 import { ScoreContext } from "../../ScoreContext";
-import reactDom from 'react-dom';
 
 const axios = require('axios');
 
@@ -31,7 +30,10 @@ const NavBar = props => {
       }
       setIsLoading(true)
       setCurScreen('request')
-      axios.get(baseURL)
+      axios.post(baseURL, {
+        name: initials,
+        score: score.get
+      })
       .then(function (response) {
         // handle success
         setIsError(false)
