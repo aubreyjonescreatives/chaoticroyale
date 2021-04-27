@@ -346,52 +346,60 @@ export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export const sumArray = (accumulator, currentValue) => accumulator + currentValue;
+export const sumArray = (accumulator, currentValue) =>
+  accumulator + currentValue;
 
 export const reducer = (valueArray) => {
-  console.log("Incoming array is: ", valueArray)
+  console.log("Incoming array is: ", valueArray);
   let theScore = 0;
   if (valueArray.length === 0) {
-    console.log("Empty initial array for score. Score is 0.")
-    return theScore
-  }
-  if(valueArray === ["1or11", "1or11"]){
-    theScore = 12
-    console.log("Two aces. Score is 12.")
-    return theScore
-  }
-  if (valueArray.includes("1or11") && valueArray !== ["1or11", "1or11"]) {
-    console.log("Has an ace!")
-    let numAces = valueArray.filter((item => item === "1or11")).length;
-    let withoutAces = valueArray.filter(value => value !== "1or11");
-    if(withoutAces.length === 0) {
-      console.log("first one's an ace")
-      theScore = 11
-      return theScore
-    }
-
-    if((withoutAces.reduce(sumArray) + (11 * numAces)) === 21 || (withoutAces.reduce(sumArray) + (1 * numAces)) === 21){
-      theScore = 21
-      return theScore
-    }
-    if((withoutAces.reduce(sumArray) + (11 * numAces)) < 21) {
-      theScore = (withoutAces.reduce(sumArray) + (11 * numAces))
-    } else if ((withoutAces.reduce(sumArray) + (11 * numAces)) > 21){
-      if((withoutAces.reduce(sumArray) + (1 * numAces)) < 21) {
-        theScore = withoutAces.reduce(sumArray) + (1 * numAces)
-      } else {
-        theScore = withoutAces.reduce(sumArray) + (1 * numAces)
-      }
-    }
-    return theScore
-  } else {
-    console.log("No Aces!")
-    theScore = valueArray.reduce(sumArray);
-    console.log("Score shows as", theScore)
+    console.log("Empty initial array for score. Score is 0.");
     return theScore;
   }
-  
-};
+  if (valueArray === ["1or11", "1or11"]) {
+    theScore = 12;
+    console.log("Two aces. Score is 12.");
+    return theScore;
+  }
+  if (valueArray.includes("1or11") && valueArray !== ["1or11", "1or11"]) {
+    console.log("Has an ace!");
+    let numAces = valueArray.filter((item) => item === "1or11").length;
+    let withoutAces = valueArray.filter((value) => value !== "1or11");
+    if (withoutAces.length === 0 && valueArray.length === 2){
+      console.log("Two aces.");
+      theScore = 12;
+      return theScore;
+    }
+    if (withoutAces.length === 0) {
+      console.log("first one's an ace");
+      theScore = 11;
+      return theScore;
+    }
 
+
+    if (
+      withoutAces.reduce(sumArray) + 11 * numAces === 21 ||
+      withoutAces.reduce(sumArray) + 1 * numAces === 21
+    ) {
+      theScore = 21;
+      return theScore;
+    }
+    if (withoutAces.reduce(sumArray) + 11 * numAces < 21) {
+      theScore = withoutAces.reduce(sumArray) + 11 * numAces;
+    } else if (withoutAces.reduce(sumArray) + 11 * numAces > 21) {
+      if (withoutAces.reduce(sumArray) + 1 * numAces < 21) {
+        theScore = withoutAces.reduce(sumArray) + 1 * numAces;
+      } else {
+        theScore = withoutAces.reduce(sumArray) + 1 * numAces;
+      }
+    }
+    return theScore;
+  } else {
+    console.log("No Aces!");
+    theScore = valueArray.reduce(sumArray);
+    console.log("Score shows as", theScore);
+    return theScore;
+  }
+};
 
 export default cards;
