@@ -5,7 +5,7 @@ import Cards from './cards'
 //import cardBacks from './images/cardBacks'
 import _ from 'lodash'
 //import ThPot from './ThPot'
-import ThActs from './ThActs'
+import THActs from './THActs'
 //import PokerChips from './images/pokerchips.png'
 import { Modal, Button} from 'react-bootstrap'
 //import { useDropzone } from 'react-dropzone'
@@ -143,7 +143,7 @@ const { getRootProps, getInputProps, isDragActive} = useDropzone({
 
 
 
-    <ThActs />
+    <THActs />
 
 
 
@@ -200,7 +200,7 @@ You will discard your current hand and forfeit the current bet!
 
 
    
-    <div className="game-container">
+    <div className="game-container-th">
     <div className="computerArea">
     <div className="computerTitle">Computer</div>
     <div id="computerCards" className="cardArea">

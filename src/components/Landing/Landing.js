@@ -1,10 +1,9 @@
 import React from 'react'
 import './Landing.scss'
 import { NavLink } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
-import BJImage from './images/blackjack.jpg'
-import SMImage from './images/slots.jpg'
-
+import BJImage from './images/Card8.svg'
+import SMImage from './images/slot_1.png'
+import THImage from './images/Card3.svg'
 
 const Landing = () => {
   
@@ -13,45 +12,40 @@ const Landing = () => {
     <div className="Landing ">
       Landing page. Click on a game in the nav bar or down below to load that game. 
     </div>
-    <div className="WelcomeMessage">Welcome, Player</div>
-    <div className="GameSelect">Please Select a Game</div>
-    <div className="card-group">
+    <div className="GameSelect">Trending Games</div>
+    <div className="game-group">
   
-      <Card className="card-container">
+      <div className="game-container">
         <NavLink to="/blackjack" className="navLink">
-      <Card.Img variant="top" src={BJImage} className="card-image" />
-      <Card.Body>
-        <Card.Text className="gameText">
+      <img variant="top" src={BJImage} className="game-image" />
+        <div className="gameText">
           BlackJack
-        </Card.Text>
-      </Card.Body>
+        </div>
       </NavLink>
-    </Card>
+    </div>
 
     
-    <Card className="card-container">
+    <div className="game-container">
         <NavLink to="/slots" className="navLink">
-      <Card.Img variant="top" src={SMImage} className="card-image"/>
-      <Card.Body>
-        <Card.Text className="gameText">
+      <img variant="top" src={SMImage} className="game-image-2"/>
+        <div className="gameText">
           Slots
-        </Card.Text>
-      </Card.Body>
+        </div>
       </NavLink>
-    </Card>
+    </div>
 
       
-    <Card className="card-container">
+    <div className="game-container">
         <NavLink to="/texasholdem" className="navLink">
-      <Card.Img variant="top" src={BJImage} className="card-image"/>
-      <Card.Body>
-        <Card.Text className="gameText">
+      <img variant="top" src={THImage} className="game-image"/>
+      <div className="gameText">
           Texas Holdem
-        </Card.Text>
-      </Card.Body>
+        </div>
       </NavLink>
-    </Card>
     </div>
+    </div>
+
+    <footer className="footerInfo">Copyright © 2021 Chaotic Royale</footer>
    
     </div>
   )

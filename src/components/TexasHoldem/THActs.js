@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PokerChips from './images/pokerchips.png'
+//import PokerChips from './images/pokerchips.png'
 import './texasholdem.scss'
 
 
@@ -33,14 +33,6 @@ render() {
 return (
     <>
 
-<div className="potArea">
-
-<div className="potTitle">The Pot</div>
-
-<figure><img src={PokerChips} /></figure>
-<div className="potNumber">$ {this.state.blind}</div>
-
-</div>
 
 <div className="actingArea">
 

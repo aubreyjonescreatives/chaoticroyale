@@ -21,6 +21,7 @@ function App() {
           <Route path="/" exact component={Landing} />
           <Route path="/blackjack" exact component={Blackjack} />
           <Route path="/slots" exact component={SlotMachine} />
+          <Route path="/texasholdem" exact component={TexasHoldem} />
         </Router>
       </ScoreContext.Provider>
     </div>
