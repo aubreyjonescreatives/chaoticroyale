@@ -1,0 +1,117 @@
+.actions {
+  display: flex;
+  margin: 20px; }
+  .actions .dealerArea {
+    justify-content: flex-start; }
+    .actions .dealerArea .dealerTitle {
+      color: white;
+      font-size: 30px;
+      text-align: center; }
+    .actions .dealerArea button {
+      font-size: 20px;
+      border: none;
+      justify-content: center;
+      margin: 20px;
+      padding: 10px; }
+  .actions .potArea {
+    justify-content: center;
+    width: 30%; }
+    .actions .potArea .potTitle {
+      color: white;
+      font-size: 30px;
+      text-align: center; }
+    .actions .potArea img {
+      display: block;
+      margin: 0 auto; }
+    .actions .potArea .potNumber {
+      color: white;
+      font-size: 24px;
+      margin-left: 120px; }
+  .actions .actingArea {
+    justify-content: flex-end; }
+    .actions .actingArea .actingTitle {
+      color: white;
+      font-size: 30px;
+      text-align: center; }
+    .actions .actingArea .act {
+      margin: 10px; }
+    .actions .actingArea input {
+      font-size: 20px; }
+    .actions .actingArea button {
+      font-size: 20px;
+      width: 100px;
+      border: none; }
+  .actions .act2 {
+    display: block;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-left: 50px; }
+    .actions .act2 .actingButton2 {
+      width: 75px;
+      padding: 10px;
+      border: none;
+      margin: 10px; }
+
+.modal {
+  height: 500px;
+  width: 300px; }
+
+.modal-header {
+  font-size: 28px;
+  margin-left: 20px; }
+
+.modal-body {
+  font-size: 24px;
+  margin-left: 20px; }
+
+.modal-button {
+  font-size: 30px; }
+
+.game-container-th {
+  display: flex;
+  width: 100%;
+  margin: 20px; }
+
+.computerArea {
+  width: 30%;
+  border: 1px solid white;
+  margin: 20px;
+  height: 500px; }
+
+.computerTitle {
+  margin: 10px;
+  color: white;
+  font-size: 24px; }
+
+.communityArea {
+  width: 30%;
+  border: 1px solid white;
+  margin: 20px;
+  height: 500px; }
+
+.communityTitle {
+  margin: 10px;
+  color: white;
+  font-size: 24px; }
+
+.playerArea {
+  width: 30%;
+  border: 1px solid white;
+  margin: 20px;
+  height: 500px; }
+
+.playerTitle {
+  margin: 10px;
+  color: white;
+  font-size: 24px; }
+
+.holeDeals {
+  list-style-type: none;
+  display: inline-flex;
+  padding: 10px; }
+
+.cardImage {
+  width: 100px;
+  height: 200px; }
+
+/*# sourceMappingURL=texasholdem.css.map */

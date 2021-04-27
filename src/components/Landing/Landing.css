@@ -19,7 +19,8 @@
   background-color: white;
   width: 200px;
   height: 250px;
-  transition: all .5s ease; }
+  transition: all .5s ease;
+  margin: 20px; }
 
 .game-container:hover {
   transform: translate3D(0, -1px, 0) scale(1.03);

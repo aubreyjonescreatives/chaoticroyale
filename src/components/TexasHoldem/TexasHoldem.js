@@ -200,7 +200,7 @@ You will discard your current hand and forfeit the current bet!
 
 
    
-    <div className="game-container">
+    <div className="game-container-th">
     <div className="computerArea">
     <div className="computerTitle">Computer</div>
     <div id="computerCards" className="cardArea">
