@@ -5,7 +5,7 @@ import Cards from './cards'
 //import cardBacks from './images/cardBacks'
 import _ from 'lodash'
 //import ThPot from './ThPot'
-import ThActs from './ThActs'
+import THActs from './THActs'
 //import PokerChips from './images/pokerchips.png'
 import { Modal, Button} from 'react-bootstrap'
 //import { useDropzone } from 'react-dropzone'
@@ -143,7 +143,7 @@ const { getRootProps, getInputProps, isDragActive} = useDropzone({
 
 
 
-    <ThActs />
+    <THActs />
 
 
 
