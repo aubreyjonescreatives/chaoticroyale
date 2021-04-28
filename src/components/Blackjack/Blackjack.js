@@ -83,7 +83,8 @@ const Blackjack = (props) => {
       await sleep(650);
       setDealerCards((dealerCards) => [...dealerCards, newCard]);
       setDealerValue((dealerValue) => [...dealerValue, newCard.value]);
-      await sleep(950).then(setGameState("dealerPhase"));
+      // await sleep(5950).then(setGameState("dealerPhase"));
+      setGameState("dealerPhase")
     };
     doTheCard();
   }, [deck]);
@@ -184,7 +185,8 @@ const Blackjack = (props) => {
         if (userCards.length === 2) {
           setGameState("doubleDown");
         }
-      } else {
+      } else if (userScore !== 21) {
+        await sleep(100)
         setGameState("userPhase");
       }
     };
@@ -212,8 +214,6 @@ const Blackjack = (props) => {
       let shuffledDeck = await shuffle(cards);
       console.log("Shuffled cards:", shuffledDeck);
       handleDeck(shuffledDeck);
-      //here, set state to take bet before addOne. addOne will happen upon bet confirm.
-      //setGameState("addOne");
       setGameState("betTime");
     };
 
@@ -237,8 +237,9 @@ const Blackjack = (props) => {
   //This useEffect governs a blackjack/natural 21 win
   useEffect(() => {
     const youWinNatural = async () => {
-      setGameState("winRoundNatural");
       await sleep(450);
+      setGameState("winRoundNatural");
+
     };
     if (userScore === 21 && userValue.length === 2) {
       console.log("Natural 21 detected!");
@@ -344,16 +345,26 @@ const Blackjack = (props) => {
     setShownDealerScore(0);
   };
 
+//useEffect to count what card we're on
+
+useEffect(() => {
+  console.log("Deck length:", deck.length)
+}, [deck])
+
   //This useEffect governs a 6 Card Charlie Win
   useEffect(() => {
-    const youWin6 = () => {
+    const youWin6 = async () => {
+      await sleep(450)
       setGameState("win6Card");
-      return;
     };
+    if (userValue.length === 6 && userScore > 21) {
+        setGameState("bust")
+    }
     if (userValue.length === 6 && userScore <= 21) {
       console.log("6 Card Charlie!");
       youWin6();
-    }
+    } 
+
   }, [userValue, userScore]);
 
   //This updates the dealer score, showing only their face up card.

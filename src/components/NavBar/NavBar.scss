@@ -43,13 +43,32 @@
 
     .score-balance {
         margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        .high-score, .balance {
+            margin: 0;
+        }
 
         .high-score {
-
+            cursor: pointer;
+            
             @media screen and (min-width: 992px) {
                 border-right: 1px solid #fff;
             }
-            
+        }
+        .high-score:hover {
+            text-decoration: underline;
+        }
+
+        .cashoutBtn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 25px;
+            font-size: 17.5px;
+            background-color: green;
+            color: white;
+            margin-left: 20px;
         }
     }
 
