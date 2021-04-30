@@ -401,7 +401,6 @@ useEffect(() => {
   console.log("Deck length:", deck.length)
 }, [deck.length])
 
-
   //This updates the dealer score, showing only their face up card.
   useEffect(() => {
     const getDealerValue = async () => {

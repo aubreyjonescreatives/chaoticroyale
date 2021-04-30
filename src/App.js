@@ -11,7 +11,7 @@ import SlotMachine from './components/SlotMachine/SlotMachine'
 import TexasHoldem from './components/TexasHoldem/TexasHoldem'
 
 function App() {
-  const [score, setScore] = useState(92)
+  const [score, setScore] = useState(1000)
 
   return (
     <div className="App">
