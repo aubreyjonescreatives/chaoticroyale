@@ -312,6 +312,39 @@ const cards = [
   { name: "qh", value: 10, image: "cards/qh.svg" },
   { name: "qs", value: 10, image: "cards/qs.svg" },
 ];
+
+export const stackedDeck = [
+  { name: "2c", value: 2, image: "cards/2c.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" }, 
+  { name: "8s", value: 8, image: "cards/8s.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "5c", value: 5, image: "cards/5c.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "5s", value: 5, image: "cards/5s.svg" },
+  { name: "2c", value: 2, image: "cards/2c.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "2s", value: 2, image: "cards/2s.svg" },
+  { name: "2c", value: 2, image: "cards/2c.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "2s", value: 2, image: "cards/2s.svg" },
+  { name: "ac", value: "1or11", image: "cards/ac.svg" },
+  { name: "2c", value: 2, image: "cards/2c.svg" },
+  { name: "js", value: 10, image: "cards/js.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "2s", value: 2, image: "cards/2s.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "2s", value: 2, image: "cards/2s.svg" },
+  { name: "2c", value: 2, image: "cards/2c.svg" },
+  { name: "2d", value: 2, image: "cards/2d.svg" },
+  { name: "2h", value: 2, image: "cards/2h.svg" },
+  { name: "2s", value: 2, image: "cards/2s.svg" },
+]
+
 export function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -374,9 +407,6 @@ export const reducer = (valueArray) => {
       console.log("first one's an ace");
       theScore = 11;
       return theScore;
-    }
-
-
     if (
       withoutAces.reduce(sumArray) + 11 * numAces === 21 ||
       withoutAces.reduce(sumArray) + 1 * numAces === 21
