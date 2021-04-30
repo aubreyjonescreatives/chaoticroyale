@@ -407,6 +407,9 @@ export const reducer = (valueArray) => {
       console.log("first one's an ace");
       theScore = 11;
       return theScore;
+    }
+
+
     if (
       withoutAces.reduce(sumArray) + 11 * numAces === 21 ||
       withoutAces.reduce(sumArray) + 1 * numAces === 21
