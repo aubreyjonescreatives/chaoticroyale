@@ -1,4 +1,4 @@
-## Chaotic Neutral Games
+## Chaotic Royale - Casino Mini Games
 ### Team project for DGM 3780 Spring 2021
 ---
 
