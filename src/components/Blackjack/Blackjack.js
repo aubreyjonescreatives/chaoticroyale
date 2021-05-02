@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, useContext } from "react";
-import cards, { stackedDeck, shuffle, getCard, sleep, reducer } from "./cards.js";
+import cards, { shuffle, getCard, sleep, reducer } from "./cards.js";
 import "./Blackjack.scss";
 import { ScoreContext } from "../../ScoreContext";
 
@@ -21,7 +21,6 @@ const Blackjack = (props) => {
   const [theBet, setTheBet] = useState(10);
   const [showDealerScore, setShowDealerScore] = useState(false);
   const [shownDealerScore, setShownDealerScore] = useState(0);
-  // const [scoreUpdating, setScoreUpdating] = useState(false)
 
   const newHand = () => {
     setUserValue([]);
@@ -390,6 +389,9 @@ const Blackjack = (props) => {
   //called to start a new round
   const playAgain = async () => {
     newHand();
+    if(theBet > score.get){
+      setTheBet(score.get)
+    }
     handleGameState("betTime");
     setShowDealerScore(false);
     setShownDealerScore(0);
