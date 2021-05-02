@@ -25,7 +25,6 @@ const Landing = () => {
       </NavLink>
     </div>
 
-    
     <div className="game-container">
         <NavLink to="/slots" className="navLink">
       <img variant="top" src={SMImage} alt="slots" className="game-image-2"/>
@@ -35,7 +34,6 @@ const Landing = () => {
       </NavLink>
     </div>
 
-      
     <div className="game-container">
         <NavLink to="/texasholdem" className="navLink">
       <img variant="top" src={THImage} alt="poker" className="game-image"/>
