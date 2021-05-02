@@ -9,6 +9,7 @@ import Landing from './components/Landing/Landing'
 import Blackjack from './components/Blackjack/Blackjack'
 import SlotMachine from './components/SlotMachine/SlotMachine'
 import TexasHoldem from './components/TexasHoldem/TexasHoldem'
+import HorseRace from './components/HorseRace/HorseRace'
 
 function App() {
   const [score, setScore] = useState(1000)
@@ -22,6 +23,7 @@ function App() {
           <Route path="/blackjack" exact component={Blackjack} />
           <Route path="/slots" exact component={SlotMachine} />
           <Route path="/texasholdem" exact component={TexasHoldem} />
+          <Route path="/horse" exact component={HorseRace} />
         </Router>
       </ScoreContext.Provider>
     </div>
