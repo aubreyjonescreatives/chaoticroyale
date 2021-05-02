@@ -46,7 +46,7 @@ const Landing = () => {
     </div>
 
     <div className="game-container">
-        <NavLink to="/texasholdem" className="navLink">
+        <NavLink to="/horse" className="navLink">
       <img variant="top" src={HImage} alt="poker" className="game-image-2"/>
       <div className="gameText">
           Horse Race
