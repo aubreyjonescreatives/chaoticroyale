@@ -69,6 +69,7 @@ const NavBar = props => {
                             <NavLink activeClassName="activeLink" to="/blackjack">Blackjack</NavLink>
                             <NavLink activeClassName="activeLink" to="/slots">Slots</NavLink>
                             <NavLink activeClassName="activeLink" to="/texasholdem">Texas Holdem</NavLink>
+                            <NavLink activeClassName="activeLink" to="/horse">Horse Race</NavLink>
                         </nav>
 
                         <div className="d-flex score-balance justify-self-end">
