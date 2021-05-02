@@ -10,9 +10,9 @@ import SlotPayouts from './SlotPayouts/SlotPayouts'
 
 const SlotMachine = props => {
     const score = useContext(ScoreContext)
-
+    console.log(score)
     // Random numbers for tumblers, win state true/false, and the winning value
-    const [randomNumbers, setRandomNumbers] = useState([9,8,19,20,21])
+    const [randomNumbers, setRandomNumbers] = useState([9,5,19,20,21])
     const [winState, setWinState] = useState(null)
     const [winValue, setWinValue] = useState(0)
 
@@ -24,6 +24,8 @@ const SlotMachine = props => {
     
     const generateNumbers = () => {
         setBet(10)
+
+        score.set(score.get - bet)
 
         setActive(true)
         // Reset the win value to 0 and win state to false
@@ -90,9 +92,6 @@ const SlotMachine = props => {
 
         }
 
-        console.log(randomNumbers)
-        console.log(between)
-
         if ( between[0] && between[1] && !between[2] && !between[3] && !between[4] ) return { win: true, count: 2 }
 
         if ( between[0] && between[1] && between[2] &&  !between[3] && !between[4]) return { win: true, count: 3 }
@@ -116,6 +115,7 @@ const SlotMachine = props => {
  
         // If we won, set the win value to the tumbler tier times the number of tumblers plus the bet amount
         if (winState?.win) setWinValue(()=> {
+            score.set(score.get + (winState.count + bet) )
             return winState.tumblers * winState.count + bet
         })
 
