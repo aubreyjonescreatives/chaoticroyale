@@ -1,0 +1,56 @@
+.horse-main {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+.horse-title {
+    text-align: center;
+    font-size: 28pt;
+    margin-bottom: 20px;
+}
+.name-text {
+    margin-left: 10%;
+    line-height: 0.2;
+    font-size: 12pt;
+    margin-top: 15px;
+}
+.bet-panel {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    text-align: center;
+}
+.bet-buttons {
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-around;
+}
+.horse-bet {
+    margin: 10px;
+    width: 100px;
+}
+.horse-bet p {
+    font-size: 11pt;
+}
+.horse-bet h3 {
+    font-size: 16pt;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.horse-bet button {
+    width: 100%;
+    font-size: 12pt;
+    border: none;
+    background-color: rgba(75, 75, 75, 0.24);
+}
+.go-button {
+    margin-bottom: 30px;
+    font-size: 20pt;
+    background-color: rgb(23, 121, 134);
+    border: none;
+    border-radius: 25px;
+    width: 80px;
+    color: white;
+}
