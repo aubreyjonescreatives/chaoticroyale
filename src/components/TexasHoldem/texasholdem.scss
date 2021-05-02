@@ -1,55 +1,131 @@
 .actions {
-    display: flex; 
-}
+display: flex; 
+margin: 20px; 
 
 
 
 .dealerArea {
-    width: 50%;  
-}
+justify-content: flex-start; 
+
 
 .dealerTitle {
-    text-align: center; 
-    padding: 20px; 
-    font-size: 36px; 
     color: white; 
+    font-size: 30px; 
+    text-align: center; 
 }
 
-.dealerButton {
-    display: inline-flex;
-    justify-content: center; 
-    width: 150px; 
-    padding: 10px;
+button {
+    font-size: 20px; 
     border: none; 
-    margin: 20px;  
-    font-size: 16px; 
-     
+    justify-content: center;
+    margin: 20px; 
+    padding: 10px;  
+}
+
+}
+
+
+
+.potArea {
+    justify-content: center; 
+    width: 30%; 
+
+.potTitle {
+    color: white; 
+    font-size: 30px; 
+    text-align: center; 
+
+}
+
+img {
+    display: block; 
+    margin: 0 auto; 
+}
+
+.potNumber {
+    color: white; 
+    font-size: 24px; 
+    margin-left: 120px; 
+}
+
 }
 
 
 .actingArea {
-    width: 50%;  
-}
+    justify-content: flex-end; 
+   
 
 .actingTitle {
-    text-align: center; 
-    padding: 20px; 
-    font-size: 36px; 
     color: white; 
+    font-size: 30px; 
+    text-align: center; 
+
 }
 
-.actingButton {
-    display: inline-flex;
-    justify-content: center; 
+.act {
+    margin: 10px; 
+}
+
+input {
+    font-size: 20px; 
+}
+
+button {
+    font-size: 20px; 
     width: 100px; 
-    padding: 10px;
     border: none; 
-    margin: 20px;  
-    font-size: 16px; 
-     
 }
 
-.game-container {
+}
+
+
+.act2 {
+    display: block; 
+    font-size: 20px; 
+    margin-top: 50px; 
+    margin-left: 50px; 
+
+    
+.actingButton2 {
+    width: 75px; 
+    padding: 10px; 
+    border: none; 
+    margin: 10px; 
+
+}
+}
+
+
+
+
+}
+
+
+.modal {
+    height: 500px; 
+    width: 300px; 
+}
+
+.modal-header {
+    font-size: 28px; 
+    margin-left: 20px; 
+}
+
+.modal-body {
+    font-size: 24px; 
+    margin-left: 20px; 
+}
+
+.modal-button {
+    font-size: 30px; 
+}
+
+
+
+
+
+
+.game-container-th {
     display: flex;
     width: 100%; 
     margin: 20px; 
@@ -60,7 +136,7 @@
     width: 30%; 
     border: 1px solid white; 
     margin: 20px;
-    height: 400px;  
+    height: 500px;  
 }
 
 .computerTitle {
@@ -74,7 +150,7 @@
     width: 30%; 
     border: 1px solid white; 
     margin: 20px; 
-    height: 400px; 
+    height: 500px; 
 }
 
 
@@ -85,11 +161,14 @@
 }
 
 
+
+
+
 .playerArea {
     width: 30%;
     border: 1px solid white; 
     margin: 20px; 
-    height: 400px;  
+    height: 500px;  
     
 }
 
@@ -104,6 +183,7 @@
 .holeDeals {
     list-style-type: none; 
     display: inline-flex; 
+    padding: 10px; 
     
 }
 
