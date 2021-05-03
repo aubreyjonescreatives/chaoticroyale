@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-//import ReactDOM from 'react-dom'
+import React, { useState, useContext } from 'react'
 import './texasholdem.scss'
 import Cards from './cards'
+import { ScoreContext } from "../../ScoreContext";
 //import cardBacks from './images/cardBacks'
 import _ from 'lodash'
 //import ThPot from './ThPot'
@@ -13,14 +13,9 @@ import { Modal, Button} from 'react-bootstrap'
 
 const cardData = Cards
 
-//const computerCards = _.shuffle(cardData)
-//const playerCards = _.shuffle(cardData)
-//const communityCards = _.shuffle(cardData)
 const theCards = _.shuffle(cardData)
 
 
-//console.log(dealerCards)
-//console.log(playerCards)
 
 
 const holecards1 = theCards[0].image
@@ -36,21 +31,13 @@ const communitycards4 = theCards[7].image
 const communitycards5 = theCards[8].image
 
 
-/* 
-const communityCardsBunch = [`${theCards[0].image}`, `${communityCards[1].image}`, `${communityCards[2].image}`,
-`${communityCards[3].image}`, `${communityCards[4].image}`, ]
- */
-
-
-
-
-//console.log(holecards1)
-//console.log(holecards2) 
-
 
 
 
 const TexasHoldem = (props) => {
+
+  const score = useContext(ScoreContext)
+  console.log(score)
  
 const [holeCards, setholeCards] = useState([])
 const [holeCards2, setholeCards2] = useState([])
@@ -60,12 +47,17 @@ const [check, setCheck] = useState(false)
 const [fold, setFold] = useState(false)
 
 
+
 const closeCheck = () => setCheck(false) 
 const showCheck = () => setCheck(true)
 
 
 
-const closeFold = () => setFold(false) 
+const closeFold = () => {
+  setFold(false)
+  setCount(0)
+
+} 
 const showFold = () => setFold(true)
 
 
@@ -114,6 +106,34 @@ const addCommunityCard = (communityCard) => {
   console.log('community card added')
 }
 
+// add scores to bet
+
+const [bet, setBet] = useState(10)
+
+
+
+
+// count bet
+
+const [count, setCount] = useState(0)
+
+//score.set(score.get + bet)
+
+const handleIncrement = () => {
+  setCount(prevCount => prevCount + 10)
+  setBet(10)
+  
+
+}
+
+
+const handleDecrement = () => {
+  setCount(prevCount => prevCount - 5)
+  setBet(5)
+  
+
+}
+
 
 
   return (
@@ -131,15 +151,18 @@ const addCommunityCard = (communityCard) => {
     <button className="dealerButton" onClick={communityAdd}>Community Cards</button>
     </div>
 
-
-
-    <THActs />
-
-
+    <div className="actChoices">
+    <div className="betTitle">Bet</div>
+    <div className="actingArea">
+    <button className="betButton" onClick={handleDecrement}>Bet -</button>
+    <h1 className="actingTitle2"> $ {count}</h1>
+    <button className="betButton" onClick={handleIncrement}>Bet +</button>
+    </div>
+    </div>
 
     <div className="act2">
 
-
+    <div className="acTitle">Additional Actions</div>
     <button className="actingButton2" onClick={showCheck}>Check</button>
     <Modal {...props} show={check} onHide={closeCheck}
     size="lg"
@@ -182,10 +205,8 @@ You will discard your current hand and forfeit the current bet!
 </Modal.Footer>
 </Modal>
     </div>
-
+    </div>
    
-  </div>
-
 
 
 

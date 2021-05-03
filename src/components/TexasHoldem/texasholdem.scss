@@ -1,11 +1,12 @@
 .actions {
-display: flex; 
+display: inline-flex; 
 margin: 20px; 
+width: 100%; 
 
 
 
 .dealerArea {
-justify-content: flex-start; 
+    margin-left: 40px; 
 
 
 .dealerTitle {
@@ -26,64 +27,76 @@ button {
 
 
 
-.potArea {
-    justify-content: center; 
-    width: 30%; 
-
-.potTitle {
-    color: white; 
-    font-size: 30px; 
-    text-align: center; 
-
-}
-
-img {
-    display: block; 
-    margin: 0 auto; 
-}
-
-.potNumber {
-    color: white; 
-    font-size: 24px; 
-    margin-left: 120px; 
-}
-
-}
+.actChoices {
+    clear: both; 
+    width: 300px; 
+    margin-left: 175px; 
 
 
+    .betTitle {
+        color: white; 
+        font-size: 30px; 
+        text-align: center; 
+        justify-content: center;  
+        margin-bottom: 20px;
+        margin-left: -20px;   
+    }
+
+
+
+
+    .actingTitle2 {
+        text-align: center; 
+        font-size: 20px; 
+        padding: 10px 20px; 
+        color: white;
+        
+    }
+
+    .betAmount {
+        text-align: center; 
+        padding: 10px; 
+    }
+
+
+    
 .actingArea {
-    justify-content: flex-end; 
+    display: inline-flex; 
+    height: 50px; 
+    justify-content: center; 
+    
    
 
-.actingTitle {
-    color: white; 
-    font-size: 30px; 
-    text-align: center; 
 
-}
 
-.act {
-    margin: 10px; 
-}
-
-input {
-    font-size: 20px; 
-}
-
-button {
+.betButton {
     font-size: 20px; 
     width: 100px; 
-    border: none; 
+    border: none;
+    padding: 5px;  
 }
 
 }
+
+
+}
+
+
 
 
 .act2 {
-    display: block; 
+  
     font-size: 20px; 
-    margin-top: 50px; 
-    margin-left: 50px; 
+    margin-left: 180px; 
+
+
+
+    .acTitle {
+        text-align: center; 
+        font-size: 30px; 
+        color: white; 
+    }
+
 
     
 .actingButton2 {
@@ -91,6 +104,7 @@ button {
     padding: 10px; 
     border: none; 
     margin: 10px; 
+    margin-left: 30px; 
 
 }
 }
