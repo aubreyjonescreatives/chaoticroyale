@@ -21,7 +21,6 @@ const Blackjack = (props) => {
   const [theBet, setTheBet] = useState(10);
   const [showDealerScore, setShowDealerScore] = useState(false);
   const [shownDealerScore, setShownDealerScore] = useState(0);
-  // const [scoreUpdating, setScoreUpdating] = useState(false)
 
   const newHand = () => {
     setUserValue([]);
@@ -162,11 +161,12 @@ const Blackjack = (props) => {
   //If they are a 9, 10, or 11 in their initial phase, they can double down.
   useEffect(() => {
     const userPhaseCheck = async () => {
-      if (userScore === 21 && userCards.length === 2) {
-        console.log("natural win.");
-        setGameState("winRoundNatural");
-        return;
-      } else if (userScore >= 9 && userScore <= 13 && userCards.length === 2) {
+      // if (userScore === 21 && userCards.length === 2) {
+      //   console.log("natural win.");
+      //   setGameState("winRoundNatural");
+      //   return;
+      // } else 
+      if (userScore >= 9 && userScore <= 13 && userCards.length === 2) {
         console.log(`Double down chance detected. User score is ${userScore}`);
         setGameState("doubleDown");
       } else if (userScore === 21 && userCards.length > 2) {
@@ -203,7 +203,8 @@ const Blackjack = (props) => {
   };
 
   //Shuffles the cards, and assigns that deck as the main game deck.
-  //Also console logs the state whenever the gameState changes.
+  //Console logs the state whenever the gameState changes.
+  //Reshuffles the deck in the betTime phase if the remaining number is < 30.
   useEffect(() => {
     console.log("GameState is now: ", gameState);
 
@@ -212,40 +213,86 @@ const Blackjack = (props) => {
       setGameState("shufflingCards");
       await sleep(400);
       let shuffledDeck = await shuffle(cards);
+      //let shuffledDeck = stackedDeck;
       console.log("Shuffled cards:", shuffledDeck);
       handleDeck(shuffledDeck);
       setGameState("betTime");
     };
-
+    const reShuffleCards = async () => {
+      setGameState("reShufflingCards");
+      await sleep(1000);
+      let shuffledDeck = await shuffle(cards);
+      handleDeck(shuffledDeck);
+      setGameState("betTime");
+    }
     if (gameState === "gameStart") {
       shuffleCards();
     }
-  }, [gameState]);
+    if (gameState === "betTime" && deck.length < 10) {
+      reShuffleCards();
+    }
+  }, [gameState, deck]);
 
   //This useEffect is the score keeper. Only the player's full score is visable.
   useEffect(() => {
-    console.log("User value in use effect is: ", userValue);
-    console.log("Dealer value in use effect is: ", dealerValue);
-    let currentPlayerScore = reducer(userValue);
-    let hiddenDealerScore = reducer(dealerValue);
-    console.log("Current Player score: ", currentPlayerScore);
-    setUserScore(currentPlayerScore);
-    console.log("Current dealer score: ", hiddenDealerScore);
-    setDealerScore(hiddenDealerScore);
+    const setScores = async () => {
+      console.log("User value in use effect is: ", userValue);
+      console.log("Dealer value in use effect is: ", dealerValue);
+      let currentPlayerScore = await reducer(userValue);
+      let hiddenDealerScore = await reducer(dealerValue);
+      console.log("Current Player score: ", currentPlayerScore);
+      setUserScore(currentPlayerScore);
+      console.log("Current dealer score: ", hiddenDealerScore);
+      setDealerScore(hiddenDealerScore);
+    }
+    setScores()
   }, [userValue, dealerValue]);
 
-  //This useEffect governs a blackjack/natural 21 win
+//Governs Six Card Charlie
+  useEffect(() => {
+    const youWin6 = () => {
+      console.log("6 Card Charlie!");
+      setGameState("win6Card");
+    };
+    const setWin6 = async () => {
+      let score = await userScore;
+      let cardsNum = await userValue;
+      if (score <= 21 && cardsNum.length === 6) {
+        youWin6();
+        return
+      }
+    }
+    setWin6()
+  }, [userScore, userValue]);
+
+
+  //This useEffect governs a blackjack/natural 21/bust
   useEffect(() => {
     const youWinNatural = async () => {
       await sleep(450);
-      setGameState("winRoundNatural");
-
-    };
-    if (userScore === 21 && userValue.length === 2) {
       console.log("Natural 21 detected!");
-      youWinNatural();
+      setGameState("winRoundNatural");
+    };
+    const busted = () => {
+      console.log("User bust!");
+      setGameState("bust");
+    };
+    console.log("Number of Player cards: ", userValue.length)
+    console.log("Player current score: ", userScore)
+    switch(true){
+      case (userScore > 21):
+        busted();
+        break;
+      case (userScore === 21):
+        if(userValue.length === 2){
+          youWinNatural();
+        }
+        break;
+        default:
+          return;
     }
-  }, [userScore, userValue]);
+
+  }, [userScore, userValue.length]);
 
   //Takes a card from the deck and deals to player for double down
   const handleDoubleDownCard = useCallback(() => {
@@ -338,8 +385,13 @@ const Blackjack = (props) => {
     autoValidate();
   }, [theBet]);
 
-  const playAgain = () => {
+
+  //called to start a new round
+  const playAgain = async () => {
     newHand();
+    if(theBet > score.get){
+      setTheBet(score.get)
+    }
     handleGameState("betTime");
     setShowDealerScore(false);
     setShownDealerScore(0);
@@ -349,23 +401,7 @@ const Blackjack = (props) => {
 
 useEffect(() => {
   console.log("Deck length:", deck.length)
-}, [deck])
-
-  //This useEffect governs a 6 Card Charlie Win
-  useEffect(() => {
-    const youWin6 = async () => {
-      await sleep(450)
-      setGameState("win6Card");
-    };
-    if (userValue.length === 6 && userScore > 21) {
-        setGameState("bust")
-    }
-    if (userValue.length === 6 && userScore <= 21) {
-      console.log("6 Card Charlie!");
-      youWin6();
-    } 
-
-  }, [userValue, userScore]);
+}, [deck.length])
 
   //This updates the dealer score, showing only their face up card.
   useEffect(() => {

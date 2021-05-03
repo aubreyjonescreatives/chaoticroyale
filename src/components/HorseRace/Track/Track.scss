@@ -1,0 +1,79 @@
+.track-main {
+    height: 54px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 1%;
+}
+.race-horse {
+    width: 55px;
+    height: 52px;
+    top: 30px;
+    background-image: url('./sprites/0.png');
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    
+}
+.running {
+    animation-name: running;
+    animation-duration: 0.4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(6);
+}
+
+.place-10 {
+    animation: run-10 6s linear
+}
+.place-60 {
+    animation: run-60 6s linear
+}
+.place-88 {
+    animation: run-88 6s linear
+}
+.place-92 {
+    animation: run-92 6s linear
+}
+.place-95-1 {
+    animation: run-95-1 6s linear
+}
+.place-95-2 {
+    animation: run-95-2 6s linear
+}
+
+@keyframes running {
+    0% {background-image: url('./sprites/1.png')}
+    17% {background-image: url('./sprites/2.png')}
+    33% {background-image: url('./sprites/3.png')}
+    50% {background-image: url('./sprites/4.png')}
+    66% {background-image: url('./sprites/5.png')}
+    83% {background-image: url('./sprites/6.png')}
+}
+
+@keyframes run-10 {
+    from {margin-left: 0%}
+    to {margin-left: 10%}
+}
+
+@keyframes run-60 {
+    from {margin-left: 0%}
+    to {margin-left: 60%}
+}
+
+@keyframes run-88 {
+    from {margin-left: 0%}
+    to {margin-left: 88%}
+}
+
+@keyframes run-92 {
+    from {margin-left: 0%}
+    to {margin-left: 92%}
+}
+@keyframes run-95-1 {
+    from {margin-left: 0%}
+    to {margin-left: 95%}
+}
+@keyframes run-95-2 {
+    0% {margin-left: 0%}
+    70% {margin-left: 50%}
+    100% {margin-left: 95%}
+}

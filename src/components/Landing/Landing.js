@@ -1,10 +1,10 @@
 import React from 'react'
 import './Landing.scss'
 import { NavLink } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
-import BJImage from './images/blackjack.jpg'
-import SMImage from './images/slots.jpg'
-
+import BJImage from './images/Card8.svg'
+import SMImage from './images/slot_1.png'
+import THImage from './images/Card3.svg'
+import HImage from './images/1.png'
 
 const Landing = () => {
   
@@ -13,45 +13,47 @@ const Landing = () => {
     <div className="Landing ">
       Landing page. Click on a game in the nav bar or down below to load that game. 
     </div>
-    <div className="WelcomeMessage">Welcome, Player</div>
-    <div className="GameSelect">Please Select a Game</div>
-    <div className="card-group">
+    <div className="GameSelect">Games</div>
+    <div className="game-group">
   
-      <Card className="card-container">
+      <div className="game-container">
         <NavLink to="/blackjack" className="navLink">
-      <Card.Img variant="top" src={BJImage} className="card-image" />
-      <Card.Body>
-        <Card.Text className="gameText">
+      <img variant="top" src={BJImage} alt="poker" className="game-image" />
+        <div className="gameText">
           BlackJack
-        </Card.Text>
-      </Card.Body>
+        </div>
       </NavLink>
-    </Card>
-
-    
-    <Card className="card-container">
-        <NavLink to="/slots" className="navLink">
-      <Card.Img variant="top" src={SMImage} className="card-image"/>
-      <Card.Body>
-        <Card.Text className="gameText">
-          Slots
-        </Card.Text>
-      </Card.Body>
-      </NavLink>
-    </Card>
-
-      
-    <Card className="card-container">
-        <NavLink to="/texasholdem" className="navLink">
-      <Card.Img variant="top" src={BJImage} className="card-image"/>
-      <Card.Body>
-        <Card.Text className="gameText">
-          Texas Holdem
-        </Card.Text>
-      </Card.Body>
-      </NavLink>
-    </Card>
     </div>
+
+    <div className="game-container">
+        <NavLink to="/slots" className="navLink">
+      <img variant="top" src={SMImage} alt="slots" className="game-image-2"/>
+        <div className="gameText">
+          Slots
+        </div>
+      </NavLink>
+    </div>
+
+    <div className="game-container">
+        <NavLink to="/texasholdem" className="navLink">
+      <img variant="top" src={THImage} alt="poker" className="game-image"/>
+      <div className="gameText">
+          Texas Holdem
+        </div>
+      </NavLink>
+    </div>
+
+    <div className="game-container">
+        <NavLink to="/horse" className="navLink">
+      <img variant="top" src={HImage} alt="poker" className="game-image-2"/>
+      <div className="gameText">
+          Horse Race
+        </div>
+      </NavLink>
+    </div>
+    </div>
+
+    <footer className="footerInfo">Copyright © 2021 Chaotic Royale</footer>
    
     </div>
   )

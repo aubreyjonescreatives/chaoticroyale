@@ -131,6 +131,17 @@ const ActionArea = (props) => {
         <button className="actionBtn">Shuffling cards...</button>
       ) : null}
 
+{props.gameState === "reShufflingCards" ? (
+    
+        <button className="actionBtn">Out of cards. Reshuffling...<br/>
+        <Spinner animation="border" role="status" variant="success">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+        </button>
+
+     
+      ) : null}
+
       {props.gameState === "betTime" ? (
         <div className="betArea">
           <label>
