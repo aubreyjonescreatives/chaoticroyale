@@ -107,49 +107,70 @@ const SlotMachine = props => {
 
 
 
-        if ( between[0] && between[1] && !between[2] && !between[3] && !between[4] ) return { win: true, count: 2 }
+        // if ( between[0] && between[1] && !between[2] && !between[3] && !between[4] ) return { win: true, count: 2 }
 
-        if ( between[0] && between[1] && between[2] &&  !between[3] && !between[4]) {
+        // if ( between[0] && between[1] && between[2] &&  !between[3] && !between[4]) {
 
-            // If we have 3 bombs in a row, you lose
-            if( isBomb ) {
-                return { win: false, count: 0}
-            }
+        //     // If we have 3 bombs in a row, you lose
+        //     if( isBomb ) {
+        //         return { win: false, count: 0}
+        //     }
 
-            // 3 cherries, give a 5
-            if( isCherry ) {
-                return { win: true, count: 5}
-            }
+        //     // 3 cherries, give a 5
+        //     if( isCherry ) {
+        //         return { win: true, count: 5}
+        //     }
 
-            // 3 stars, give a 6
-            if( isStar ) {
-                return { win: true, count: 6}
-            }
+        //     // 3 stars, give a 6
+        //     if( isStar ) {
+        //         return { win: true, count: 6}
+        //     }
 
-            return { win: true, count: 4 } 
-        }
+        //     return { win: true, count: 4 } 
+        // }
 
-        if ( between[0] && between[1] && between[2] && between[3] && !between[4]) {
+        // if ( between[0] && between[1] && between[2] && between[3] && !between[4]) {
 
-            // If we have 4 bombs in a row, you lose
-            if( isBomb ) {
-                return { win: false, count: 0}
-            }
+        //     // If we have 4 bombs in a row, you lose
+        //     if( isBomb ) {
+        //         return { win: false, count: 0}
+        //     }
 
-            // 4 cherries, give a 8
-            if( isCherry ) {
-                return { win: true, count: 5}
-            }
+        //     // 4 cherries, give a 8
+        //     if( isCherry ) {
+        //         return { win: true, count: 5}
+        //     }
 
-            // 4 stars, give a 9
-            if( isStar ) {
-                return { win: true, count: 6}
-            }
+        //     // 4 stars, give a 9
+        //     if( isStar ) {
+        //         return { win: true, count: 6}
+        //     }
 
 
-            return { win: true, count: 8 }
-        }
+        //     return { win: true, count: 8 }
+        // }
 
+        // if ( between[0] && between[1] && between[2] && between[3] && between[4] ) {
+
+        //     // If we have 5 bombs in a row, you lose
+        //     if( isBomb ) {
+        //         return { win: false, count: 0 }
+        //     }
+
+        //     // 5 cherries, give a 8
+        //     if( isCherry ) {
+        //         return { win: true, count:  18 }
+        //     }
+
+        //     // 5 stars, give a 9
+        //     if( isStar ) {
+        //         return { win: true, count: 20 }
+        //     }
+
+        //     return { win: true, count: 16 }
+        // }
+
+        // Test 1-5
         if ( between[0] && between[1] && between[2] && between[3] && between[4] ) {
 
             // If we have 5 bombs in a row, you lose
@@ -170,6 +191,52 @@ const SlotMachine = props => {
             return { win: true, count: 16 }
         }
 
+        // Test 1-4
+        if ( between[0] && between[1] && between[2] && between[3] ) {
+
+            // If we have 4 bombs in a row, you lose
+            if( isBomb ) {
+                return { win: false, count: 0}
+            }
+
+            // 4 cherries, give a 8
+            if( isCherry ) {
+                return { win: true, count: 5}
+            }
+
+            // 4 stars, give a 9
+            if( isStar ) {
+                return { win: true, count: 6}
+            }
+
+
+            return { win: true, count: 8 }
+        }
+
+        // Test 1-3
+        if ( between[0] && between[1] && between[2] ) {
+
+            // If we have 3 bombs in a row, you lose
+            if( isBomb ) {
+                return { win: false, count: 0}
+            }
+
+            // 3 cherries, give a 5
+            if( isCherry ) {
+                return { win: true, count: 5}
+            }
+
+            // 3 stars, give a 6
+            if( isStar ) {
+                return { win: true, count: 6}
+            }
+
+            return { win: true, count: 4 } 
+        }
+
+        // Test 1 and 2
+        if ( between[0] && between[1] ) return { win: true, count: 2 }
+
         return { win: false, count: 0 }
     }   
 
@@ -183,17 +250,18 @@ const SlotMachine = props => {
     useEffect(()=>{
  
         // If we won, set the win value to the tumbler tier times the number of tumblers plus the bet amount
-        const updateScore = ()=> {
-            if (winState?.win) {
-                setWinValue(()=> {
-                    score.set(score.get + (winState.count + bet) )
-                    return winState.tumblers * winState.count + bet
-                })
-            } 
-        }
 
-        
-       updateScore()
+        if (winState?.win) {
+
+            const winningScore = score.get + (winState.count + bet)
+            score.set(winningScore)
+
+            setWinValue(()=> {
+                // score.set(score.get + (winState.count + bet) )
+                return winState.tumblers * winState.count + bet
+            })
+        } 
+
 
     },[ winState?.win ])
 
