@@ -4,29 +4,33 @@ import './texasholdem.scss'
 
 
 
+
 class THActs extends Component {
 
 
-
-    
-
 constructor(props) {
-super(props) 
+    super(props)
     this.state = {
-        blind: ''
+        clicks: 0,
+    }
+  
 }
 
+IncrementItem = () => {
+    this.setState({ clicks: this.state.clicks + 20})
 }
 
-onChange(e) {
-    this.setState({
-        blind: e.target.value
-    })
+DecreaseItem = () => {
+    this.setState({ clicks: this.state.clicks - 1})
 }
 
-blindbet = () => {
-    console.log('add blind bet', this)
-}
+
+
+
+
+
+
+
 
 
 render() {
@@ -34,40 +38,22 @@ return (
     <>
 
 
+
 <div className="actingArea">
 
-<div className="actingTitle">Submit Acts</div>
-
    <div className="act">
-    <input type="text" placeholder="$" onChange={this.onChange}/>
-    <button className="actingButton" onClick={this.blindbet}  > Blind Bet</button>
-    </div>
-    <div className="act">
-   
-    <input type="text" placeholder="$"/>
-    <button className="actingButton">Bet</button>
+    <button onClick={this.IncrementItem}>Increase Bet by $20</button>
+   <h1 className="betAmount">$ { this.state.clicks}</h1>
+    <button onClick={this.DecreaseItem}>Decrease Bet by $1</button>
     </div>
 
-    <div className="act">
-    <input type="text" placeholder="$"/>
-    <button className="actingButton" >Raise</button>
-    </div>
-    <div className="act">
-    <input type="text" placeholder="$"/>
-    <button className="actingButton" >Re-Raise</button>
-    </div>
-
-
-  </div>
-
-
-
+</div>
 
 </>
 
 )
-}
 
+}
 
 }
 
