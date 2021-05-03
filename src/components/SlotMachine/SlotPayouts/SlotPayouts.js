@@ -20,49 +20,49 @@ const SlotPayouts = props => {
             
 
             <div className="col-1">
-                <img src={ icon1 } />
+                <img src={ icon1 } alt="" />
                 <p className="payout-desc">
                     1x 
                 </p>
             </div>
 
             <div className="col-1">
-                <img src={ icon2 } />
+                <img src={ icon2 } alt="" />
                 <p className="payout-desc">
                     2x 
                 </p>
             </div>
 
             <div className="col-1">
-                <img src={ icon3 } />
+                <img src={ icon3 } alt="" />
                 <p className="payout-desc">
                     3x 
                 </p>
             </div>
 
             <div className="col-1">
-                <img src={ icon4 } />
+                <img src={ icon4 } alt="" />
                 <p className="payout-desc">
                     4x 
                 </p>
             </div>
 
             <div className="col-1">
-                <img src={ icon5 } />
+                <img src={ icon5 } alt="" />
                 <p className="payout-desc">
                     5x 
                 </p>
             </div>
 
             <div className="col-1">
-                <img src={ icon6 } />
+                <img src={ icon6 } alt="" />
                 <p className="payout-desc">
                     6x 
                 </p>
             </div>
 
             <div className="col-1">
-                <img src={ icon7 } />
+                <img src={ icon7 } alt="" />
                 <p className="payout-desc">
                     7x 
                 </p>
