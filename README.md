@@ -4,9 +4,18 @@
 
 ## Description
 
-This project is a simple casino-style gaming app that uses the React library and the [Deck of Cards API](http://deckofcardsapi.com/).
+This project is a simple casino-style gaming app that utilizes internal objects and SVG files to serve most of it's data. It does reach out to a RESTful MongoDB/Express API (https://github.com/timetoady/chaoticRoyaleScoreServer) via heroku to add and display high scores, which are updated when a user "Checks out".
 
-Initially, this app will consist of a single game - Blackjack - and, if we have time we'll add more.
+## Deployed via Netlify at:
+
+https://chaoticroyale.netlify.app/
+
+## Games
+
+* Blackjack
+* Slots
+* Texas Holdem
+* Horse Race
 
 ## Framework
 
