@@ -4,14 +4,14 @@
     background-color: #ddd;
     display: flex;
     justify-content: space-around;
-    width: 13vw;
-    height: 13vw;
+    width: 15vw;
+    height: 15vw;
     margin: 5px;
     overflow: hidden;
 
     @media (min-width:1200px) {
-        width: 10vw;
-        height: 10vw;
+        width: 8vw;
+        height: 8vw;
     }
 }
 

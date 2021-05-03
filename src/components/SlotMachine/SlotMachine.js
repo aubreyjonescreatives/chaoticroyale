@@ -10,9 +10,9 @@ import SlotPayouts from './SlotPayouts/SlotPayouts'
 
 const SlotMachine = props => {
     const score = useContext(ScoreContext)
-    console.log(score)
+
     // Random numbers for tumblers, win state true/false, and the winning value
-    const [randomNumbers, setRandomNumbers] = useState([9,5,19,20,21])
+    const [randomNumbers, setRandomNumbers] = useState([21,20,19,1,9])
     const [winState, setWinState] = useState(null)
     const [winValue, setWinValue] = useState(0)
 
@@ -23,19 +23,23 @@ const SlotMachine = props => {
     const [bet, setBet] = useState(10)
     
     const generateNumbers = () => {
-        setBet(10)
+        // setBet(10)
 
-        score.set(score.get - bet)
-
-        setActive(true)
-        // Reset the win value to 0 and win state to false
-        setWinValue(0)
-
+        // Reset the win state
         setWinState({
             win: false,
             tumblers: 0,
             count: 0
-        })     
+        }) 
+
+        setActive(true)
+
+        score.set(score.get - bet)
+
+        // Reset the win value to 0 and win state to false
+        setWinValue(0)
+
+        setRandomNumbers([0,0,0,0,0])
 
         // Generate a random number for each element in the randomNumbers array
         setTimeout(() => {
@@ -44,6 +48,7 @@ const SlotMachine = props => {
             setRandomNumbers(tumblerValues)
         }, 3000)
     }
+
 
     const checkWin = n => {
         // Check for win state -- compare the values of the tumblers 
@@ -63,10 +68,10 @@ const SlotMachine = props => {
             const two = ranges[i][1]
 
             const obj = isBetween(one, two, n)
-            console.log(obj)
 
             // If we have a win, break the loop and return the object
             if (obj.win) {
+                
                 return {
                     win: true,
                     tumblers: i + 1, // Current value of the loop iterator + 1
@@ -74,13 +79,21 @@ const SlotMachine = props => {
                 }
             }
         }
-
+        
         return { win: false, tumblers: 0, count: 0 }
     } 
    
     
     const isBetween = (val1, val2, valArray) => {
         let between = [false,false,false,false,false]
+
+        let isBomb = false
+        let isCherry = false
+        let isStar = false
+
+        if( valArray[0] === 16 || valArray[0] === 17) isBomb = true
+        if( valArray[0] === 20 ) isCherry = true
+        if( valArray[0] === 21 ) isStar = true
         
         for (let i in valArray) {
 
@@ -92,35 +105,165 @@ const SlotMachine = props => {
 
         }
 
-        if ( between[0] && between[1] && !between[2] && !between[3] && !between[4] ) return { win: true, count: 2 }
 
-        if ( between[0] && between[1] && between[2] &&  !between[3] && !between[4]) return { win: true, count: 3 }
 
-        if ( between[0] && between[1] && between[2] && between[3] && !between[4]) return { win: true, count: 4 }
+        // if ( between[0] && between[1] && !between[2] && !between[3] && !between[4] ) return { win: true, count: 2 }
 
-        if ( between[0] && between[1] && between[2] && between[3] && between[4] ) return { win: true, count: 5 }
+        // if ( between[0] && between[1] && between[2] &&  !between[3] && !between[4]) {
+
+        //     // If we have 3 bombs in a row, you lose
+        //     if( isBomb ) {
+        //         return { win: false, count: 0}
+        //     }
+
+        //     // 3 cherries, give a 5
+        //     if( isCherry ) {
+        //         return { win: true, count: 5}
+        //     }
+
+        //     // 3 stars, give a 6
+        //     if( isStar ) {
+        //         return { win: true, count: 6}
+        //     }
+
+        //     return { win: true, count: 4 } 
+        // }
+
+        // if ( between[0] && between[1] && between[2] && between[3] && !between[4]) {
+
+        //     // If we have 4 bombs in a row, you lose
+        //     if( isBomb ) {
+        //         return { win: false, count: 0}
+        //     }
+
+        //     // 4 cherries, give a 8
+        //     if( isCherry ) {
+        //         return { win: true, count: 5}
+        //     }
+
+        //     // 4 stars, give a 9
+        //     if( isStar ) {
+        //         return { win: true, count: 6}
+        //     }
+
+
+        //     return { win: true, count: 8 }
+        // }
+
+        // if ( between[0] && between[1] && between[2] && between[3] && between[4] ) {
+
+        //     // If we have 5 bombs in a row, you lose
+        //     if( isBomb ) {
+        //         return { win: false, count: 0 }
+        //     }
+
+        //     // 5 cherries, give a 8
+        //     if( isCherry ) {
+        //         return { win: true, count:  18 }
+        //     }
+
+        //     // 5 stars, give a 9
+        //     if( isStar ) {
+        //         return { win: true, count: 20 }
+        //     }
+
+        //     return { win: true, count: 16 }
+        // }
+
+        // Test 1-5
+        if ( between[0] && between[1] && between[2] && between[3] && between[4] ) {
+
+            // If we have 5 bombs in a row, you lose
+            if( isBomb ) {
+                return { win: false, count: 0 }
+            }
+
+            // 5 cherries, give a 8
+            if( isCherry ) {
+                return { win: true, count:  18 }
+            }
+
+            // 5 stars, give a 9
+            if( isStar ) {
+                return { win: true, count: 20 }
+            }
+
+            return { win: true, count: 16 }
+        }
+
+        // Test 1-4
+        if ( between[0] && between[1] && between[2] && between[3] ) {
+
+            // If we have 4 bombs in a row, you lose
+            if( isBomb ) {
+                return { win: false, count: 0}
+            }
+
+            // 4 cherries, give a 8
+            if( isCherry ) {
+                return { win: true, count: 5}
+            }
+
+            // 4 stars, give a 9
+            if( isStar ) {
+                return { win: true, count: 6}
+            }
+
+
+            return { win: true, count: 8 }
+        }
+
+        // Test 1-3
+        if ( between[0] && between[1] && between[2] ) {
+
+            // If we have 3 bombs in a row, you lose
+            if( isBomb ) {
+                return { win: false, count: 0}
+            }
+
+            // 3 cherries, give a 5
+            if( isCherry ) {
+                return { win: true, count: 5}
+            }
+
+            // 3 stars, give a 6
+            if( isStar ) {
+                return { win: true, count: 6}
+            }
+
+            return { win: true, count: 4 } 
+        }
+
+        // Test 1 and 2
+        if ( between[0] && between[1] ) return { win: true, count: 2 }
 
         return { win: false, count: 0 }
     }   
 
-    useEffect(()=> {
-
-        // When the random numbers update, set the win state
-        setWinState( checkWin(randomNumbers) )
-    
-    }, [ randomNumbers ])
+    useEffect(()=> {        
+       // When the random numbers update, set the win state
+        setWinState( checkWin(randomNumbers) ) 
+  
+    }, [ ...randomNumbers ])
 
     
     useEffect(()=>{
  
         // If we won, set the win value to the tumbler tier times the number of tumblers plus the bet amount
-        if (winState?.win) setWinValue(()=> {
-            score.set(score.get + (winState.count + bet) )
-            return winState.tumblers * winState.count + bet
-        })
 
-    },[ winState ])
+        if (winState?.win) {
 
+            const winningScore = score.get + (winState.count + bet)
+            score.set(winningScore)
+
+            setWinValue(()=> {
+                // score.set(score.get + (winState.count + bet) )
+                return winState.tumblers * winState.count + bet
+            })
+        } 
+
+
+    },[ winState?.win ])
 
     const randomNumber = () => {
         // Generate a random number between 1 and 21, and increase the chances for smaller numbers 
@@ -130,7 +273,7 @@ const SlotMachine = props => {
     return (
         <div className="container slot-machine">
             <SlotPayouts />
-            
+
             {
                 winState?.win ? 
                 <Confetti 
