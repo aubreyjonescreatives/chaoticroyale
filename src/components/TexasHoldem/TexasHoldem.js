@@ -154,7 +154,6 @@ const handleDecrement = () => {
     <div className="actChoices">
     <div className="betTitle">Bet</div>
     <div className="actingArea">
-    <button className="betButton" onClick={handleDecrement}>Bet -</button>
     <h1 className="actingTitle2"> $ {count}</h1>
     <button className="betButton" onClick={handleIncrement}>Bet +</button>
     </div>
