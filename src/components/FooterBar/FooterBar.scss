@@ -1,11 +1,13 @@
 .footer {
+clear: both;
+margin-top: 100px;  
 background: #3b3b3b;
 color: #fff;
 padding: 1rem 0; 
 font-size: 1.6rem; 
 text-align: center; 
 position: absolute;
-bottom: 0;  
+bottom: -100px;  
 left: 0;
 width: 100%;  
 
