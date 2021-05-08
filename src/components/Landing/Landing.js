@@ -6,6 +6,7 @@ import SMImage from './images/slot_1.png'
 import THImage from './images/Card3.svg'
 import HImage from './images/1.png'
 
+
 const Landing = () => {
   
   return (
@@ -52,9 +53,6 @@ const Landing = () => {
       </NavLink>
     </div>
     </div>
-
-    <footer className="footerInfo">Copyright © 2021 Chaotic Royale</footer>
-   
     </div>
   )
 }

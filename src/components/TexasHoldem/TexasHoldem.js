@@ -240,10 +240,9 @@ You will discard your current hand and forfeit the current bet!
     </div>
     </div>
     </div>
-   
-   
-    </div>
+  
 
+</div>
   )
 }
 
