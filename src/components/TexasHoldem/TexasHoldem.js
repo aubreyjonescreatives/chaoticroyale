@@ -57,7 +57,14 @@ const closeFold = () => {
   setFold(false)
   setCount(0)
 
+}
+
+const closeFold2 = () => {
+  setFold(false)
+  
+
 } 
+
 const showFold = () => setFold(true)
 
 
@@ -186,7 +193,7 @@ const handleDecrement = () => {
    
     <button className="actingButton2" onClick={showFold}>Fold</button>
 
-<Modal {...props} show={fold} onHide={closeFold}
+<Modal {...props} show={fold} onHide={closeFold2}
  size="lg"
 aria-labelledby="contained-modal-title-vcenter"
 centered 
@@ -198,7 +205,7 @@ className="modal">
 You will discard your current hand and forfeit the current bet!
 </Modal.Body>
 <Modal.Footer>
-  <Button variant="secondary" onClick={closeFold} className="modal-button">Close</Button>
+  <Button variant="secondary" onClick={closeFold2} className="modal-button">Close</Button>
   <Button variant="secondary" onClick={closeFold} className="modal-button">Fold</Button>
 
 </Modal.Footer>
